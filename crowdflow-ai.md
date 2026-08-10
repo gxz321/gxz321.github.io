@@ -2,138 +2,138 @@
 layout: page
 title: CrowdFlow AI
 subtitle: AI-Assisted Crowd Planning for Large Events
-share-title: "CrowdFlow AI | 人群安全 AI 规划"
+share-title: "CrowdFlow AI | AI-Powered Crowd Safety"
 ---
 
-> 基于社会力模型 + LLM 的大型活动人群规划工具  
-> 使用 2022 年里昂灯光节真实 CCTV 数据验证
+> Social Force Model + LLM crowd planning tool  
+> Validated with real CCTV data from the 2022 Lyon Festival of Lights
 
 ---
 
-## 📖 项目背景
+## 📖 Background
 
-2022 年 12 月，法国里昂 Place des Terreaux 举办灯光节（Fête des Lumières）。
+December 2022 — Place des Terreaux, Lyon, France. The Fête des Lumières (Festival of Lights).
 
-CCTV 追踪了 **11,904 人** 在约 60m×70m 的广场中的移动：
+CCTV tracked **11,904 people** moving through a ~60m × 70m plaza:
 
-| 数据点 | 数值 | 含义 |
-|--------|------|------|
-| 🎯 追踪人数 | 11,904 | CCTV 轨迹数据 |
-| ⚡ 碰撞事件 | 446 次 | 16 名志愿者佩戴传感器记录 |
-| 🐌 最低均速 | **0.04 m/s** | 几乎完全停滞 |
-| 😰 最高单人碰撞 | **99 次 / 20 分钟** | 极端拥挤状况 |
+| Data Point | Value | Significance |
+|------------|-------|-------------|
+| 🎯 People Tracked | 11,904 | CCTV trajectory data |
+| ⚡ Contact Events | 446 | Recorded by 16 sensor-wearing volunteers |
+| 🐌 Lowest Mean Speed | **0.04 m/s** | Near-complete standstill |
+| 😰 Highest Individual Contacts | **99 / 20 min** | Extreme crowding |
 
-> *"如果 AI 参与了规划，是否能避免这些？"*
+> *"Could AI-assisted planning have prevented this?"*
 
 ![CrowdFlow AI Dashboard](/assets/img/crowdflow-preview.png)
 
 ---
 
-## 🧠 技术架构
+## 🧠 Architecture
 
-| 层级 | 技术 | 作用 |
-|------|------|------|
-| **数据层** | 真实 CCTV 轨迹数据 | 提供 Ground Truth |
-| **模拟引擎** | Social Force Model (Helbing & Molnár, 1995) | 模拟任意布局下的人群移动 |
-| **AI 分析** | LLM (GPT-4o / Ollama 本地模型) | 诊断瓶颈、生成优化建议 |
-| **可视化** | Streamlit + Matplotlib + Canvas 动画 | 交互式仪表盘 |
+| Layer | Technology | Role |
+|-------|-----------|------|
+| **Data** | Real CCTV trajectory data | Ground truth |
+| **Simulation** | Social Force Model (Helbing & Molnár, 1995) | Pedestrian movement under any layout |
+| **AI Analysis** | LLM (GPT-4o / Ollama local) | Diagnose bottlenecks, generate recommendations |
+| **Visualization** | Streamlit + Matplotlib + Canvas animation | Interactive dashboard |
 
 ---
 
-## 🎯 AI 改了什么
+## 🎯 What the AI Changed
 
-核心决策：**非对称闸门宽度分配**
+The core decision: **asymmetric gate-width distribution**
 
 ```
-人类方案（等宽思维）          AI 推荐（行为补偿）
+Human Plan (equal-width)        AI Recommended (behavior-compensating)
         
   Gate1  Gate2  Gate3        Gate1  Gate2  Gate3
   ┌────┐┌────┐┌────┐        ┌──┐ ┌──────┐ ┌──┐
   │2.0m││2.0m││2.0m│        │1.5│ │3.5m  │ │1.5│
   └────┘└────┘└────┘        └──┘ └──────┘ └──┘
-    33%   33%   33%            22%   55%    22%  ← 宽度分配
+    33%   33%   33%            22%   55%    22%  ← width allocation
                               ↑_____↑_____↑
-    实际流量: 22%  55%  22%   实际流量: 30%  40%  30%  ← 更均衡
+  Actual flow: 22%  55%  22%  Actual flow: 30%  40%  30%  ← more balanced
 ```
 
-### AI 的洞察
+### The AI's Insight
 
-人群天然选择最短路径，导致中间闸门承受 ~55% 的压力。
-等宽设计没有补偿这种行为偏差。
-**AI 通过非对称设计对冲人类的非理性行为**。
+People naturally take the shortest path, putting ~55% of pressure on the center gate.
+Equal-width design fails to compensate for this behavioral bias.
+**AI uses asymmetric design to counteract irrational human behavior.**
 
-### 三层建议
+### Three-Tier Recommendations
 
-| 优先级 | 建议 | 原理 |
-|--------|------|------|
-| 🔴 高 | 中间闸门 3.5m，两侧 1.5m | 宽度补偿行为偏差 |
-| 🟡 中 | 护栏外扩 15° 喇叭口 | 排队区 +30%，自然引导分流 |
-| 🟢 低 | 延伸护栏至 5m + 地面视觉线 | 低成本增加缓冲 |
+| Priority | Recommendation | Rationale |
+|----------|---------------|-----------|
+| 🔴 High | Center gate 3.5m, sides 1.5m | Width compensates for behavioral bias |
+| 🟡 Medium | Flare barriers outward 15° | +30% queue area, natural flow diversion |
+| 🟢 Low | Extend barriers to 5m + floor guide lines | Low-cost buffer expansion |
 
-### 预期效果
+### Expected Impact
 
-| 指标 | 等宽设计 | AI 优化 | 改善 |
-|------|---------|---------|------|
-| 通过率 | ~40% | ~75% | ↑88% |
-| 峰值密度 | 3.5+ 人/m² | <2 人/m² | ↓43% |
-| 碰撞次数 | 120+ | <60 | ↓50% |
-| 中间闸门负载 | ~55% | ~40% | 均衡化 |
+| Metric | Equal-Width | AI-Optimized | Improvement |
+|--------|-------------|-------------|-------------|
+| Pass Rate | ~40% | ~75% | ↑88% |
+| Peak Density | 3.5+ ppl/m² | <2 ppl/m² | ↓43% |
+| Collisions | 120+ | <60 | ↓50% |
+| Center Gate Load | ~55% | ~40% | Balanced |
 
 ---
 
-## 🏗️ 模拟场景
+## 🏗️ Simulation Scene
 
-Dashboard 模拟一个 **36m × 24m** 的中型音乐节入场口：
+The dashboard models a **36m × 24m** medium-scale festival entrance:
 
 ```
-      ← 排队护栏 ← 安检闸门 → 活动区域 →
+      ← Queue barriers ← Security gates → Event zone →
       
          🚧 Gate 1 (1.5m) 🚧
-      排队缓冲区        🏃→
-         🚧 Gate 2 (3.5m) 🚧   ← AI 拓宽
-       (forecourt)      🏃→
+      Queue buffer          🏃→
+         🚧 Gate 2 (3.5m) 🚧   ← AI-widened
+      (forecourt)           🏃→
          🚧 Gate 3 (1.5m) 🚧
-                        🏃→
+                            🏃→
 ```
 
-可调参数：访客数 (60–240) · 护栏长度 (2–6m) · 模拟步数 (100–500)
+Tunable: visitors (60–240) · barrier length (2–6m) · simulation steps (100–500)
 
 ---
 
-## 🚀 在线体验
+## 🚀 Try It
 
-- **▶️ [Streamlit Demo](https://crowdflow-ai.streamlit.app)**（待部署）
-- **📂 [GitHub 仓库](https://github.com/gxz321/crowdflow-ai)**
+- **▶️ [Live Demo](https://crowdflows-ai-gk8xsndjykcrgvtyk3wfbm.streamlit.app)**
+- **📂 [GitHub Repo](https://github.com/gxz321/crowdflows-ai)**
 
-### 本地运行
+### Run Locally
 
 ```bash
-git clone https://github.com/gxz321/crowdflow-ai.git
-cd crowdflow-ai
+git clone https://github.com/gxz321/crowdflows-ai.git
+cd crowdflows-ai
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\activate  # or `source .venv/bin/activate` on macOS/Linux
 pip install -r crowdflow_ai/requirements.txt
 streamlit run crowdflow_ai/app.py
 ```
 
 ---
 
-## 🛠 技术栈
+## 🛠 Tech Stack
 
-- **模拟**: PyTorch · socialforce · Social Force Model
-- **数据**: pandas · scipy · shapely · pyproj
+- **Simulation**: PyTorch · socialforce · Social Force Model
+- **Data**: pandas · scipy · shapely · pyproj
 - **AI**: OpenAI API / Ollama (LLM Agent)
-- **界面**: Streamlit · Matplotlib · Canvas 动画
-- **设计**: CSS 变量体系 · 暗色主题 · Glacier Blue 配色
+- **UI**: Streamlit · Matplotlib · Canvas animation
+- **Design**: CSS variable system · dark theme · Glacier Blue palette
 
 ---
 
-## 📝 相关文章
+## 📝 Related Writing
 
-暂无。计划写一篇关于「社会力模型在人群规划中的应用」的技术笔记。
+Coming soon — a technical deep-dive on applying Social Force Models to crowd planning.
 
 ---
 
-## 📬 反馈
+## 📬 Feedback
 
-欢迎提 Issue 或 PR！联系：[GitHub @gxz321](https://github.com/gxz321)
+Issues and PRs welcome! Contact: [GitHub @gxz321](https://github.com/gxz321)

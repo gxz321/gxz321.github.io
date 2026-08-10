@@ -1,13 +1,13 @@
-- name: "👥 CrowdFlow AI — 人群安全 AI 规划"
+- name: "👥 CrowdFlow AI — AI-Powered Crowd Planning"
   description: >
-    基于 Social Force Model + LLM 的大型活动人群规划工具。
-    使用 2022 年里昂灯光节真实 CCTV 数据（11,904 条轨迹），
-    模拟入场口闸门设计，AI 诊断瓶颈并给出优化建议。
-    核心洞察：等宽闸门 ≠ 公平分配 —— AI 通过非对称设计补偿人类行为偏差。
+    A large-event crowd planning tool built on Social Force Model + LLM.
+    Validated with real CCTV data from the 2022 Lyon Festival of Lights (11,904 trajectories).
+    Simulates entrance gate designs, diagnoses bottlenecks with AI, and recommends optimizations.
+    Core insight: equal-width gates ≠ fair distribution — AI compensates for human behavioral bias through asymmetric design.
   links:
-    - name: "▶️ 在线演示 (Streamlit)"
-      url: "https://crowdflow-ai.streamlit.app"
-    - name: "📂 GitHub 仓库"
-      url: "https://github.com/gxz321/crowdflow-ai"
-    - name: "📄 项目详解"
+    - name: "▶️ Live Demo (Streamlit)"
+      url: "https://crowdflows-ai-gk8xsndjykcrgvtyk3wfbm.streamlit.app"
+    - name: "📂 GitHub Repo"
+      url: "https://github.com/gxz321/crowdflows-ai"
+    - name: "📄 Full Project Page"
       url: "/crowdflow-ai"

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Projects
-subtitle: 动手做过的项目
+subtitle: Things I've built
 ---
 
 {% for project in site.data.projects %}
@@ -20,8 +20,8 @@ subtitle: 动手做过的项目
 
 ---
 
-## 🚧 规划中
+## 🚧 In the Pipeline
 
-- 🧊 冰蓝极简设计系统（CSS 变量体系）
-- 📊 里昂灯光节数据深度分析
-- 🐳 Docker 容器化部署方案
+- 🧊 Glacier Blue design system (CSS variable architecture)
+- 📊 Deep-dive analysis of Lyon Festival of Lights data
+- 🐳 Docker containerization for deployment

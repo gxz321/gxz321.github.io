@@ -1,28 +1,28 @@
 ---
 layout: page
 title: About
-subtitle: 关于我和这个站点
+subtitle: About me and this site
 ---
 
-## 👤 关于我
+## 👤 About Me
 
-- 🎓 背景：（请填写你的教育/职业背景）
-- 💼 方向：数据科学 · AI 工程 · 空间分析
-- 🛠 技能栈：
+- 🎓 Background: (fill in your education / work background)
+- 💼 Focus: Data Science · AI Engineering · Spatial Analytics
+- 🛠 Skills:
 
-| 类别 | 技术 |
-|------|------|
-| 语言 | Python · SQL · R |
-| 框架 | Streamlit · PyTorch · Pandas |
-| 工具 | Git · Docker · VS Code · Jupyter |
-| 领域 | 人群动力学 · 空间数据分析 · LLM Agent |
+| Category | Tech |
+|----------|------|
+| Languages | Python · SQL · R |
+| Frameworks | Streamlit · PyTorch · Pandas |
+| Tools | Git · Docker · VS Code · Jupyter |
+| Domains | Crowd Dynamics · Spatial Data Analysis · LLM Agents |
 
-## 🎯 这个站点的目标
+## 🎯 Purpose of This Site
 
-1. **技术笔记** — 记录踩坑和心得，方便自己回顾
-2. **项目展示** — 每个项目都有可跑 Demo 或可复现的代码
-3. **面试准备** — 用实际的工程产出证明能力
+1. **Tech Notes** — Document lessons learned for future reference
+2. **Project Portfolio** — Every project has a live demo or reproducible code
+3. **Interview Ready** — Prove capability through real engineering output
 
-## 📬 联系
+## 📬 Contact
 
 - GitHub: [@gxz321](https://github.com/gxz321)
