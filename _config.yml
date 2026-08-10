@@ -1,0 +1,61 @@
+# gxz321.github.io — Personal Site powered by Beautiful Jekyll
+#
+# Theme: https://github.com/daattali/beautiful-jekyll
+# Docs:  https://beautifuljekyll.com
+
+# ── Site identity ─────────────────────────────────────────────
+title: GXZ's Lab
+author:
+  name: GXZ
+  email: ""
+description: >-
+  技术笔记 × 项目作品 — 记录思考，展示成果。
+
+url: https://gxz321.github.io
+baseurl: ""
+
+# ── Appearance ────────────────────────────────────────────────
+remote_theme: daattali/beautiful-jekyll
+
+navbar-links:
+  About: aboutme
+  Projects: projects
+  CrowdFlow AI: crowdflow-ai
+
+avatar: /assets/img/avatar.png
+round-avatar: true
+
+# Social
+social-network-links:
+  github: gxz321
+
+# ── Content defaults ──────────────────────────────────────────
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: page
+      show-avatar: true
+      nav-short: false
+
+# ── Plugins ───────────────────────────────────────────────────
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+feed:
+  path: atom.xml
+
+# ── Markdown ──────────────────────────────────────────────────
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# ── Build settings ────────────────────────────────────────────
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
