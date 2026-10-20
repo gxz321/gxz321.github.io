@@ -1,77 +1,147 @@
-"""Build a dependency-free, pre-rendered portfolio for GitHub Pages."""
+"""Pre-render GXZ's English research portfolio. Python standard library only."""
 from pathlib import Path
 import argparse
 import html
 import json
 import shutil
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE = "https://gxz321.github.io"
+PROFILE = json.loads((ROOT / "content/profile.json").read_text(encoding="utf-8"))
+PROJECTS = json.loads((ROOT / "content/projects.json").read_text(encoding="utf-8"))
 e = html.escape
-PROFILE = json.loads((ROOT / 'content/profile.json').read_text(encoding='utf-8'))
-PROJECTS = json.loads((ROOT / 'content/projects.json').read_text(encoding='utf-8'))
-SITE = 'https://gxz321.github.io'
+
+def asset_url(path):
+    source=(ROOT/path.lstrip('/')).read_bytes().replace(b'\r\n',b'\n')
+    return path+'?v='+hashlib.sha256(source).hexdigest()[:10]
+
+def arrow(direction="right"):
+    paths = {"right": "M4 12h16M13 5l7 7-7 7", "up": "M5 19 19 5M5 5h14v14", "down": "M12 4v16M5 13l7 7 7-7"}
+    return f'<svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="{paths[direction]}" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 def nav():
-    return '''<a class="skip-link" href="#main">跳到主要内容</a>
-<header class="site-header container"><a class="brand" href="/" aria-label="GXZ 首页"><strong>GXZ.</strong><span>projects &amp; experiments</span></a>
-<button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">菜单 ＋</button>
-<nav class="main-nav" id="main-nav" aria-label="主导航"><a href="/#projects">项目</a><a href="/#journey">经历</a><a href="/#about">关于</a><a href="/#contact">联系</a><a class="nav-github" href="https://github.com/gxz321" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></header>'''
+    return f'''<a class="skip-link" href="#main">Skip to content</a>
+<header id="top" class="site-header wrap">
+<a class="brand" href="/" aria-label="GXZ home">GXZ<span>.</span></a><span class="brand-note">independent research</span>
+<button class="menu-toggle" aria-expanded="false" aria-controls="main-nav"><span data-menu-label>Menu</span><span class="menu-mark" aria-hidden="true"></span></button>
+<nav id="main-nav" class="main-nav" aria-label="Main navigation"><a class="nav-link" href="/#projects">Work <span>(03)</span></a><a class="nav-link" href="/#approach">Approach</a><a class="nav-link" href="/#about">About</a><a class="nav-link" href="/#contact">Contact {arrow('up')}</a></nav></header>'''
 
 def footer():
-    return f'''<footer id="contact" class="contact-band"><div class="container contact-inner"><h2>一起讨论下一个想法。</h2><div class="contact-links"><div><a href="https://github.com/gxz321" target="_blank" rel="noopener noreferrer">联系我 ↗</a><a href="https://github.com/gxz321?tab=repositories" target="_blank" rel="noopener noreferrer">浏览代码 ↗</a></div><p>© 2026 {e(PROFILE['name'])} / Built with curiosity.</p></div></div></footer>'''
+    return f'''<footer class="site-footer" id="contact"><div class="wrap">
+<div class="contact-grid"><h2>Let’s make<br>sense of it.</h2><a class="contact-link" href="https://github.com/gxz321" target="_blank" rel="noopener noreferrer"><span class="circle-arrow" data-magnetic>{arrow()}</span><span>Find me on GitHub {arrow('up')}</span></a></div>
+<div class="footer-line"><span>© 2026 GXZ</span><span>RESEARCH / DESIGN / EXPERIMENTS</span><a href="#top">Back to top ↑</a></div></div></footer>'''
 
-def page(title, description, body, path='/', image='/assets/portfolio/hero-plaza.png', schema=None):
-    structured = json.dumps(schema or {'@context':'https://schema.org','@type':'WebSite','name':'GXZ · 项目与研究','url':SITE}, ensure_ascii=False).replace('<', '\\u003c')
+def page(title, description, body, path="/", image="/assets/portfolio/social-preview.png", schema=None, bodyclass=""):
+    structured = json.dumps(schema or {"@context":"https://schema.org", "@type":"WebSite", "name":"GXZ — Intelligence, in motion.", "url":SITE}, ensure_ascii=False).replace("<", "\\u003c")
     return f'''<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f4f0"><title>{e(title)}</title><meta name="description" content="{e(description,quote=True)}"><link rel="canonical" href="{SITE}{path}"><meta property="og:type" content="website"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="{e(title,quote=True)}"><meta property="og:description" content="{e(description,quote=True)}"><meta property="og:url" content="{SITE}{path}"><meta property="og:image" content="{SITE}{image}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/svg+xml" href="/assets/portfolio/favicon.svg"><link rel="stylesheet" href="/assets/css/portfolio.css"><script src="/assets/js/portfolio.js" defer></script><script type="application/ld+json">{structured}</script></head><body>{nav()}{body}{footer()}</body></html>'''
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f3f4ef">
+<title>{e(title)}</title><meta name="description" content="{e(description, quote=True)}"><link rel="canonical" href="{SITE}{path}">
+<meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:site_name" content="GXZ"><meta property="og:title" content="{e(title,quote=True)}"><meta property="og:description" content="{e(description,quote=True)}"><meta property="og:url" content="{SITE}{path}"><meta property="og:image" content="{SITE}{image}"><meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" type="image/svg+xml" href="/assets/portfolio/favicon.svg"><link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{asset_url('/assets/css/portfolio.css')}"><script src="{asset_url('/assets/js/motion.js')}" defer></script><script src="{asset_url('/assets/js/portfolio.js')}" defer></script>
+<script type="application/ld+json">{structured}</script></head><body class="{bodyclass}">{nav()}{body}{footer()}</body></html>'''
 
-def project_row(p, reverse=False):
-    return f'''<article class="project-row{' reverse' if reverse else ''}"><a class="project-media" href="/projects/{p['slug']}/" aria-label="查看 {e(p['title'],quote=True)} 项目"><img src="{p['cover']}" alt="{e(p['coverAlt'],quote=True)}" width="1000" height="620" loading="lazy"></a><div class="project-info"><div class="project-category"><span>{p['index']}</span>/ &nbsp; {e(p['category'])}</div><h3><a href="/projects/{p['slug']}/">{e(p['title'])}</a></h3><p>{e(p.get('short',p['summary']))}</p><div class="project-meta"><span>{e(p['status'])}</span><span>{e(' · '.join(p['stack'][:3]))}</span></div><a class="project-link" href="/projects/{p['slug']}/">查看项目 <span aria-hidden="true">↗</span></a></div></article>'''
+def cover(p):
+    return "/assets/portfolio/crowd-paths.svg" if p["slug"] == "crowdflow-ai" else p["cover"]
+
+def work_link(p, cls="case-link"):
+    return f'<a class="{cls}" href="/projects/{p["slug"]}/" aria-label="View case study: {e(p["title"],quote=True)}"><span class="circle-arrow" data-magnetic>{arrow()}</span><span>View case study</span></a>'
+
+def secondary_project(p):
+    subtitle = "A testable bridge between robot policies and simulation." if p["slug"] == "groot" else "Field observation, spatial reconstruction, and pedestrian paths."
+    status = "Engineering in progress." if p["slug"] == "groot" else "Course research."
+    image = cover(p) if p["slug"] == "groot" else "/assets/portfolio/sunken-site.webp"
+    image_alt = p['coverAlt'] if p["slug"] == "groot" else "Daytime observation of the campus sunken plaza"
+    return f'''<article class="project-study" data-reveal>
+<a class="study-media" href="/projects/{p['slug']}/" aria-label="Open {e(p['title'],quote=True)} case study"><img src="{image}" width="1440" height="1000" alt="{e(image_alt,quote=True)}" loading="lazy"></a>
+<div class="study-index"><span>{p['index']}</span><span>{p['year']}</span></div><h3>{e(p['title'])}</h3><p class="study-subtitle">{subtitle}</p><p class="study-status mono">{status}</p>{work_link(p)}</article>'''
 
 def home():
-    rows = ''.join(project_row(p, i % 2 == 1) for i, p in enumerate(PROJECTS))
-    body = f'''<main id="main" class="container"><section class="hero" aria-labelledby="hero-heading"><div class="hero-copy"><h1 id="hero-heading">在真实问题中，<span>探索智能与空间。</span></h1><p class="hero-description">我关注人群流动、机器人仿真与空间设计，<br>把观察转化为模型，把想法推进到实验。</p><div class="hero-actions"><a class="button" href="#projects">浏览项目 <span aria-hidden="true">↘</span></a><a class="text-link" href="#about">了解我 <span aria-hidden="true">→</span></a></div></div><figure class="hero-figure"><img src="/assets/portfolio/hero-plaza.png" width="1448" height="1086" alt="下沉公共空间与步行路径的建筑轴测概念插画" fetchpriority="high"><figcaption>空间 × 感知 × 行动 · 概念插画</figcaption></figure><a class="scroll-cue" href="#projects" aria-label="向下浏览项目">↓</a></section>
-<section id="projects" aria-labelledby="projects-heading"><div class="section-heading"><h2 id="projects-heading">精选项目</h2><p>Selected work <span>01 — 04</span></p></div>{rows}<article class="project-row reverse pending"><div class="project-media pending-media" role="img" aria-label="医疗机器人项目内容待补充"><span>To be continued.</span></div><div class="project-info"><div class="project-category"><span>04</span>/ &nbsp; ROBOTICS</div><h3>医疗机器人</h3><p>资料整理中，项目详情后续更新。</p><div class="project-meta"><span>待补充程序代码与完整项目包</span></div></div></article></section>
-<section class="about" id="about" aria-labelledby="about-heading"><div class="about-heading"><h2 id="about-heading">关于我</h2><span>About</span></div><div class="about-copy"><p class="about-statement">在代码与空间之间，<br>持续学习，动手验证。</p><p>我关注智能系统如何感知环境、理解人的行为，并在真实问题中发挥作用。这里记录我的项目、研究过程与尚在推进的实验。</p></div></section>
-<section class="journey" id="journey" aria-labelledby="journey-heading"><div class="journey-heading"><h2 id="journey-heading">探索路径</h2><span>/ Research journey</span></div><a class="journey-row" href="/projects/crowdflow-ai/"><strong>人群流动</strong><p>轨迹数据、拥堵分析与可视化</p><span aria-hidden="true">→</span></a><a class="journey-row" href="/projects/sunken-plaza/"><strong>空间研究</strong><p>下沉广场、步行体验与空间形态</p><span aria-hidden="true">→</span></a><a class="journey-row" href="/projects/groot/"><strong>机器人学习</strong><p>Isaac Sim、仿真数据与 GR00T</p><span aria-hidden="true">→</span></a></section></main>'''
-    return page('GXZ · 项目与研究', 'GXZ 的个人作品集：CrowdFlow AI 人群流动分析、下沉广场空间研究、GR00T 与 Isaac Sim 仿真学习，以及持续推进的机器人项目。', body)
+    p = PROJECTS[0]
+    studies = "".join(secondary_project(p) for p in PROJECTS[1:])
+    body = f'''<main id="main" tabindex="-1">
+<section class="hero wrap" aria-labelledby="hero-heading">
+<div class="hero-grid"><h1 class="hero-title" id="hero-heading"><span>Intelligence,</span><span>in <em>motion.</em></span></h1>
+<div class="hero-support"><p>{e(PROFILE['statement'])}</p><a class="hero-cta" href="#projects"><span>Explore selected work</span><span class="circle-arrow" data-magnetic>{arrow()}</span></a></div>
+<figure class="hero-field"><div class="flow-panel" data-flow-panel><canvas id="hero-flow" data-flow-field data-scheme="dark" aria-hidden="true" width="960" height="720"></canvas><button class="flow-toggle" aria-controls="hero-flow" aria-pressed="false"><span class="pause-mark" aria-hidden="true"></span><span data-flow-label>Pause motion</span></button></div><figcaption>Illustrative flow field · not a calibrated simulation</figcaption></figure></div>
+<div class="hero-baseline mono"><span>PEOPLE / SPACE / MACHINES</span><a href="#projects">SCROLL TO EXPLORE ↓</a></div></section>
+<section class="selected-work" id="projects" aria-labelledby="work-heading"><div class="wrap section-head" data-reveal><h2 id="work-heading">Selected work <span class="mono">(01—03)</span></h2><p class="mono">Three ways of looking<br>at complex systems.</p></div>
+<article class="featured-project" data-reveal><a class="featured-media" href="/projects/crowdflow-ai/" aria-label="Open CrowdFlow AI case study"><img src="/assets/portfolio/crowd-paths.svg" width="1440" height="1000" alt="A selected set of pedestrian trajectories from the TopView 1A recording" loading="lazy"></a><div class="featured-copy"><span class="featured-index mono">01</span><h3>CrowdFlow AI</h3><p>Reading crowds.<br> Rethinking flow.</p><span class="featured-status mono">2026 / Research prototype</span>{work_link(p)}</div></article>
+<div class="wrap"><div class="work-pair">{studies}</div><div class="forthcoming"><span class="mono">04</span><h3>Medical robotics</h3><p class="mono">Case study forthcoming.</p><span class="forthcoming-mark" aria-hidden="true">—</span></div></div></section>
+<section class="approach wrap" id="approach" aria-labelledby="approach-heading"><h2 id="approach-heading" data-reveal>A way of<br>working.</h2><div class="approach-steps">
+<div class="approach-step" data-reveal><span class="mono">01</span><h3>Observe</h3><p class="mono">Start with people, context,<br> and evidence.</p></div>
+<div class="approach-step" data-reveal><span class="mono">02</span><h3>Model</h3><p class="mono">Make assumptions visible.<br> Build something testable.</p></div>
+<div class="approach-step" data-reveal><span class="mono">03</span><h3>Refine</h3><p class="mono">Compare, question, and<br> keep the limits in view.</p></div></div></section>
+<section class="about-band" id="about" aria-labelledby="about-heading"><div class="wrap about-grid"><h2 id="about-heading" data-reveal>Curiosity,<br>made tangible.</h2><div class="about-copy" data-reveal><span class="mono">ABOUT GXZ</span><p>I work between code and space. My projects explore human movement, public places, and embodied intelligence. This is a record of what I build, what I learn, and what still needs testing.</p></div></div></section></main>'''
+    return page("GXZ — Intelligence, in motion.", "Independent research at the intersection of crowd movement, public space, and embodied intelligence. Selected projects and experiments by GXZ.", body, bodyclass="home")
+
+def evidence_view(slug):
+    if slug == "crowdflow-ai":
+        options = [
+            ("Trajectories","/assets/portfolio/crowd-paths.svg","Selected trajectories from the TopView 1A recording","A deterministic sample of pedestrian trajectories from one recording. Distances retain the source coordinate scale."),
+            ("Relative frequency","/assets/portfolio/crowd-density.svg","Relative observation frequency across the TopView 1A recording","All recorded positions from the same clip, grouped into spatial bins. Relative sample frequency is not calibrated occupancy, density, or risk.")
+        ]
+        label, note = "One recording, two readings.", "The two views describe one source clip; neither is a calibrated safety assessment."
+    elif slug == "sunken-plaza":
+        options = [
+            ("On site","/assets/portfolio/sunken-site.webp","Fixed-camera view of the campus sunken plaza","A daytime observation frame from the course study."),
+            ("Reconstruction","/assets/portfolio/sunken.webp","Reconstructed plaza geometry with pedestrian traces","Reconstructed context and pedestrian visualization from the course study. The viewpoints differ; this is not a registered before-and-after comparison.")
+        ]
+        label, note = "From observation to spatial context.", "Different viewpoints reveal different parts of the study."
+    else:
+        return '''<section class="artifact-section" id="artifacts"><div class="artifact-heading"><span class="mono">SYSTEM MAP</span><h3>Three interfaces.<br>One testable workflow.</h3></div><div class="workflow">
+<details open><summary><span class="mono">01</span><strong>Dataset</strong><span class="workflow-status">Demonstrations required</span></summary><p>Preflight checks inspect the expected dataset structure. Real SO-101 demonstrations, synchronized cameras, and verified joint units still need to be provided.</p></details>
+<details><summary><span class="mono">02</span><strong>Policy</strong><span class="workflow-status">Protocol tested</span></summary><p>The dual-camera HTTP interface, explicit mock and real backends, and joint mapping are implemented. Seven CPU tests pass. Actual learned-policy inference requires a compatible checkpoint and environment.</p></details>
+<details><summary><span class="mono">03</span><strong>Simulation</strong><span class="workflow-status">GPU evaluation pending</span></summary><p>The bounded rollout entry point is written. A calibrated scene, verified assets, real model outputs, and GPU task evaluation remain necessary before reporting robot capability.</p></details></div></section>'''
+    buttons = "".join(f'<button type="button" aria-pressed="{str(i==0).lower()}" data-image="{o[1]}" data-alt="{e(o[2],quote=True)}" data-caption="{e(o[3],quote=True)}">{o[0]}</button>' for i,o in enumerate(options))
+    o=options[0]; other=options[1]
+    return f'''<section class="artifact-section" id="artifacts" data-evidence-view><div class="artifact-heading"><span class="mono">EVIDENCE IN VIEW</span><h3>{label}</h3><p>{note}</p></div><div class="evidence-controls" data-evidence-controls role="group" aria-label="Choose evidence view">{buttons}</div><figure class="evidence-figure"><img data-evidence-image src="{o[1]}" alt="{o[2]}" width="1440" height="1000" loading="lazy"><figcaption data-evidence-caption aria-live="polite">{o[3]}</figcaption></figure><a class="figure-fullsize mono" data-evidence-fullsize href="{o[1]}" target="_blank" rel="noopener noreferrer">Open full-size figure {arrow('up')}</a><noscript><figure class="evidence-figure"><img src="{other[1]}" alt="{other[2]}" width="1440" height="1000" loading="lazy"><figcaption>{other[3]}</figcaption></figure></noscript></section>'''
 
 def detail(p, next_p):
-    sections = ''.join(f'''<section class="detail-section"><h2>{e(s['title'])}</h2>{''.join('<p>'+e(t)+'</p>' for t in s['paragraphs'])}</section>''' for s in p['sections'])
-    links = ''.join(f'<a href="{e(l["url"],quote=True)}" '+('download' if l['url'].endswith('.zip') else 'target="_blank" rel="noopener noreferrer"')+f'>{e(l["label"])} ↗</a>' for l in p['links'])
-    gallery = ''
-    if p['slug'] == 'crowdflow-ai':
-        gallery = '<figure><img src="/assets/portfolio/crowdflow-simulation.png" loading="lazy" alt="社会力入口仿真示例，展示行人位置与闸门布局"><figcaption>已有社会力仿真画面。单次模拟仅用于探索，不代表实际干预效果。</figcaption></figure>'
-    if p['slug'] == 'sunken-plaza':
-        gallery = '''<figure><img src="/assets/portfolio/sunken-site.png" loading="lazy" alt="同济大学校园下沉广场的日间固定机位研究画面"><figcaption>现场采样：观察通行、停留与空间使用。</figcaption></figure><figure><video controls preload="none" playsinline poster="/assets/portfolio/sunken.png" aria-label="Rhino 中的人流空间可视化动画"><source src="/assets/portfolio/sunken-flow.mp4" type="video/mp4">浏览器不支持视频。<a href="/assets/portfolio/sunken-flow.mp4">下载查看动画</a></video><figcaption>原课程汇报中的 Rhino 人流动画，基于采集时段的探索性复现。</figcaption></figure>'''
-    download = ''
-    schema = {'@context':'https://schema.org','@type':'CreativeWork','name':p['title'],'description':p['summary'],'url':SITE+'/projects/'+p['slug']+'/', 'creativeWorkStatus':p['status']}
-    body = f'''<main id="main" class="container detail-main"><a class="back-link" href="/#projects">← 返回精选项目</a><header class="detail-header"><div class="project-category"><span>{p['index']}</span>/ &nbsp; {e(p['category'])}</div><h1>{e(p['title'])}</h1><p class="english-title">{e(p['englishTitle'])}</p><p class="detail-lead">{e(p['summary'])}</p><div class="detail-meta"><span>{e(p['year'])}</span><span>{e(p['status'])}</span><span>{e(' · '.join(p['stack']))}</span></div></header><figure class="detail-cover"><img src="{p['cover']}" width="1000" height="620" alt="{e(p['coverAlt'],quote=True)}"><figcaption>{e(p['coverAlt'])}</figcaption></figure><div class="detail-content">{sections}<div class="detail-links">{links}{download}</div><div class="detail-gallery">{gallery}</div><nav class="project-next" aria-label="项目导航"><a href="/#projects">← 全部项目</a><a href="/projects/{next_p['slug']}/">{e(next_p['title'])} →</a></nav></div></main>'''
-    return page(p['title']+' · GXZ', p['summary'],body,'/projects/'+p['slug']+'/',p['cover'],schema)
+    chapter_names=["The question","The method","What exists","What comes next"]
+    chapters=[]
+    for i,s in enumerate(p["sections"]):
+        heading = s["title"].split(" / ",1)[-1]
+        paras = "".join(f"<p>{e(t)}</p>" for t in s["paragraphs"])
+        chapters.append(f'<section class="case-section" id="chapter-{i+1}"><span class="chapter-label mono">0{i+1} / {chapter_names[i].upper()}</span><h2>{e(heading)}</h2>{paras}</section>')
+        if i==1: chapters.append(evidence_view(p["slug"]))
+    toc = "".join(f'<a class="nav-link" href="#chapter-{i+1}">{name}</a>'+('<a class="nav-link" href="#artifacts">Explore the evidence</a>' if i==1 else '') for i,name in enumerate(chapter_names))
+    links = "".join('<a href="'+e(l["url"],quote=True)+'" '+('download' if l["url"].endswith(".zip") else 'target="_blank" rel="noopener noreferrer"')+'>'+e(l["label"])+' '+arrow("up")+'</a>' for l in p["links"])
+    deliverables = "".join(f"<li>{e(x)}</li>" for x in p.get("deliverables",[]))
+    movie = '''<figure class="study-film"><video controls preload="none" playsinline poster="/assets/portfolio/sunken.webp" aria-label="Silent pedestrian visualization in the reconstructed plaza" aria-describedby="film-description"><source src="/assets/portfolio/sunken-flow.mp4" type="video/mp4">Your browser does not support this video. <a href="/assets/portfolio/sunken-flow.mp4">Download the research animation</a>.</video><figcaption id="film-description">Silent research animation. Pedestrian markers and concentrations show sampled movement and gathering areas in the reconstructed plaza. This is an exploratory visualization of the recorded periods. <a class="inline-link" href="/assets/portfolio/sunken-flow.mp4" download>Download the research animation</a>.</figcaption></figure>''' if p["slug"]=="sunken-plaza" else ""
+    schema={"@context":"https://schema.org","@type":"CreativeWork","name":p["title"],"description":p["summary"],"url":SITE+"/projects/"+p["slug"]+"/","creativeWorkStatus":p["status"]}
+    body=f'''<main id="main" tabindex="-1" class="case-main"><div class="wrap"><a class="back-link mono" href="/#projects">← All projects</a><header class="case-header"><div class="case-title-line"><h1>{e(p['title'])}</h1><span class="mono">{p['index']} / {p['year']}</span></div><p class="case-lead">{e(p['summary'])}</p><dl class="case-facts"><div><dt>FIELD</dt><dd>{e(p['category'].title())}</dd></div><div><dt>STATUS</dt><dd>{e(p['status'])}</dd></div><div><dt>TOOLS</dt><dd>{e(', '.join(p['stack'][:3]))}</dd></div></dl></header>
+<figure class="case-cover"><img src="{cover(p)}" width="1440" height="1000" alt="{e(p['coverAlt'],quote=True)}" fetchpriority="high"><figcaption>{e(p.get('mediaCaption',p['coverAlt']))} <a class="inline-link" href="{cover(p)}" target="_blank" rel="noopener noreferrer">Open full-size figure ↗</a></figcaption></figure>
+<div class="case-layout"><aside class="case-sidebar"><nav aria-label="Case study contents">{toc}</nav><div class="sidebar-note mono">{e(p['year'])}<br>{e(p['discipline'])}</div></aside><article class="case-article">{''.join(chapters)}<section class="deliverables"><span class="mono">OUTPUTS &amp; ARTIFACTS</span><ul>{deliverables}</ul></section>{movie}<div class="resource-links">{links}</div></article></div>
+<a class="next-project" href="/projects/{next_p['slug']}/"><span class="mono">NEXT STUDY / {next_p['index']}</span><span class="next-title">{e(next_p['title'])}</span><span class="circle-arrow">{arrow()}</span></a></div></main>'''
+    return page(p["title"]+" — GXZ",p["summary"],body,"/projects/"+p["slug"]+"/",schema=schema,bodyclass="case-page")
 
 def build(out):
-    out.mkdir(parents=True, exist_ok=True)
-    if out.resolve() != ROOT:
-        shutil.copytree(ROOT/'assets/portfolio',out/'assets/portfolio',dirs_exist_ok=True)
-        for folder, name in [('css','portfolio.css'),('js','portfolio.js')]:
-            (out/'assets'/folder).mkdir(parents=True,exist_ok=True)
-            shutil.copy2(ROOT/'assets'/folder/name,out/'assets'/folder/name)
-        if (ROOT/'assets/downloads').exists():
-            shutil.copytree(ROOT/'assets/downloads',out/'assets/downloads',dirs_exist_ok=True)
-    (out/'index.html').write_text(home(),encoding='utf-8')
+    out.mkdir(parents=True,exist_ok=True)
+    if out.resolve()!=ROOT:
+        for directory in ["portfolio","fonts","downloads"]:
+            if (ROOT/"assets"/directory).exists():shutil.copytree(ROOT/"assets"/directory,out/"assets"/directory,dirs_exist_ok=True)
+        for directory,names in {"css":["portfolio.css"],"js":["portfolio.js","motion.js"]}.items():
+            (out/"assets"/directory).mkdir(parents=True,exist_ok=True)
+            for name in names:shutil.copy2(ROOT/"assets"/directory/name,out/"assets"/directory/name)
+    (out/"index.html").write_text(home(),encoding="utf-8")
     for i,p in enumerate(PROJECTS):
-        dest=out/'projects'/p['slug'];dest.mkdir(parents=True,exist_ok=True)
-        (dest/'index.html').write_text(detail(p,PROJECTS[(i+1)%len(PROJECTS)]),encoding='utf-8')
-    (out/'404.html').write_text(page('页面未找到 · GXZ','返回 GXZ 的项目与研究首页。','<main id="main" class="container empty-state"><h1>404 / 迷路了。</h1><p>这个页面可能已更新，继续探索项目与研究。</p><a class="button" href="/">返回首页 ↗</a></main>','/404.html'),encoding='utf-8')
-    redirect='<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/#about"><title>关于 GXZ</title><link rel="canonical" href="https://gxz321.github.io/#about"></head><body><a href="/#about">查看关于我</a></body></html>'
-    for path in ['aboutme/index.html','aboutme.html','tags.html']:
-        dest=out/path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(redirect,encoding='utf-8')
-    (out/'.nojekyll').write_text('',encoding='utf-8')
-    urls=['/']+['/projects/'+p['slug']+'/' for p in PROJECTS]
-    (out/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{SITE}{p}</loc></url>' for p in urls)+'</urlset>',encoding='utf-8')
-    (out/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+SITE+'/sitemap.xml\n',encoding='utf-8')
-    (out/'feed.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>GXZ · 项目与研究</title><link>'+SITE+'</link><description>人群流动、空间研究与机器人仿真。</description>'+''.join('<item><title>'+e(p['title'])+'</title><link>'+SITE+'/projects/'+p['slug']+'/</link><description>'+e(p['summary'])+'</description><guid>'+SITE+'/projects/'+p['slug']+'/</guid></item>' for p in PROJECTS)+'</channel></rss>',encoding='utf-8')
-    print(f'Built {len(PROJECTS)+2} pages in {out}')
+        dest=out/"projects"/p["slug"];dest.mkdir(parents=True,exist_ok=True)
+        (dest/"index.html").write_text(detail(p,PROJECTS[(i+1)%len(PROJECTS)]),encoding="utf-8")
+    (out/"404.html").write_text(page("Page not found — GXZ","Find your way back to GXZ's selected research and experiments.",'<main id="main" tabindex="-1" class="wrap not-found"><span class="mono">404 / OFF THE MAP</span><h1>A different<br>direction.</h1><p>This page may have moved. There is more to explore.</p><a class="hero-cta" href="/"><span>Back to selected work</span><span class="circle-arrow">'+arrow()+'</span></a></main>',"/404.html"),encoding="utf-8")
+    redirect='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/#about"><title>About GXZ</title><link rel="canonical" href="https://gxz321.github.io/#about"></head><body><a href="/#about">About GXZ</a></body></html>'
+    for name in ["aboutme/index.html","aboutme.html","tags.html"]:
+        dest=out/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(redirect,encoding="utf-8")
+    (out/".nojekyll").write_text("",encoding="utf-8")
+    urls=["/"]+["/projects/"+p["slug"]+"/" for p in PROJECTS]
+    (out/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f"<url><loc>{SITE}{p}</loc></url>" for p in urls)+'</urlset>',encoding="utf-8")
+    (out/"robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: "+SITE+"/sitemap.xml\n",encoding="utf-8")
+    (out/"feed.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>GXZ — Intelligence, in motion.</title><link>'+SITE+'</link><description>Research on people, space, and intelligent systems.</description>'+''.join("<item><title>"+e(p["title"])+"</title><link>"+SITE+"/projects/"+p["slug"]+"/</link><description>"+e(p["summary"])+"</description><guid>"+SITE+"/projects/"+p["slug"]+"/</guid></item>" for p in PROJECTS)+"</channel></rss>",encoding="utf-8")
+    print(f"Built {len(PROJECTS)+2} English pages in {out}")
 
-if __name__ == '__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT);args=parser.parse_args();build(args.output.resolve())
+if __name__=="__main__":
+    parser=argparse.ArgumentParser();parser.add_argument("--output",type=Path,default=ROOT)
+    build(parser.parse_args().output.resolve())

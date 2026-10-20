@@ -1,16 +1,29 @@
+/* Evidence controls progressively enhance the pre-rendered research pages. */
 (() => {
-  const button = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.main-nav');
-  if (!button || !nav) return;
-  const close = () => { nav.classList.remove('is-open'); button.setAttribute('aria-expanded', 'false'); button.textContent = '菜单 ＋'; };
-  button.addEventListener('click', () => {
-    const open = button.getAttribute('aria-expanded') !== 'true';
-    button.setAttribute('aria-expanded', String(open));
-    nav.classList.toggle('is-open', open);
-    button.textContent = open ? '关闭 −' : '菜单 ＋';
+  'use strict';
+  document.documentElement.classList.add('js');
+  document.querySelectorAll('[data-evidence-view]').forEach(view => {
+    const image = view.querySelector('[data-evidence-image]');
+    const caption = view.querySelector('[data-evidence-caption]');
+    const fullsize = view.querySelector('[data-evidence-fullsize]');
+    const controls = Array.from(view.querySelectorAll('[data-image]'));
+    if (!image || !caption || controls.length < 2) return;
+    let activeRequest = 0;
+    controls.forEach(button => button.addEventListener('click', () => {
+      if (button.getAttribute('aria-pressed') === 'true') return;
+      const request = ++activeRequest;
+      const next = new Image();
+      next.onload = () => {
+        if (request !== activeRequest) return;
+        image.src = button.dataset.image;
+        image.alt = button.dataset.alt;
+        caption.textContent = button.dataset.caption;
+        if (fullsize) fullsize.href = button.dataset.image;
+        controls.forEach(control => control.setAttribute('aria-pressed', String(control === button)));
+      };
+      next.onerror = () => { if (request === activeRequest) caption.textContent = 'This view could not load. The current research image remains available.'; };
+      next.src = button.dataset.image;
+    }));
+    view.setAttribute('data-enhanced', '');
   });
-  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', close));
-  document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav.classList.contains('is-open')) { close(); button.focus(); } });
-  document.addEventListener('click', event => { if (!nav.contains(event.target) && !button.contains(event.target)) close(); });
-  matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) close(); });
 })();

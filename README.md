@@ -1,25 +1,54 @@
-# GXZ · 项目与研究
+# GXZ — Intelligence, in motion.
 
-个人作品集，面向 GitHub Pages：CrowdFlow AI、下沉广场、GR00T × Isaac Sim。医疗机器人按计划保留为待补充项目。
+An English-language portfolio exploring crowd intelligence, spatial research and embodied AI. Featured work includes CrowdFlow AI, GR00T × Isaac Sim and Sunken Plaza. A medical-robotics project remains a reserved entry until its source code, package and supporting material are supplied.
 
-网站使用静态 HTML、CSS 和少量原生 JavaScript，没有运行时依赖；正文预先生成，关闭 JavaScript 仍能浏览项目。
+The site uses pre-rendered HTML, CSS and native JavaScript, with no runtime framework or package-install step. Project content remains readable without JavaScript. `assets/js/motion.js` adds navigation, restrained reveals and a canvas-based motion study. Manrope and Instrument Serif are self-hosted, with their SIL Open Font License files included in `assets/fonts/`.
 
-## 编辑与预览
+## Edit, build and preview
 
-1. 修改 `content/projects.json` 的项目内容和 `content/profile.json` 的署名。联系入口使用 GitHub。
-2. 将自己的项目图放入 `assets/portfolio/`，更新项目的 `cover` 与 `coverAlt`。
-3. 运行 `python scripts/build.py` 生成仓库根目录的网页。
-4. 运行 `python scripts/check_site.py` 检查内部链接、图片、元数据和页面结构。
-5. 运行 `python -m http.server 8080 --bind 127.0.0.1`，浏览 `http://127.0.0.1:8080/`。
+1. Edit project content in `content/projects.json` and the profile in `content/profile.json`. The contact destination is GitHub.
+2. Add project media to `assets/portfolio/` and update the relevant image paths, alternative text and captions.
+3. Generate the static pages:
 
-独立部署目录可用 `python scripts/build.py --output dist` 构建。发布到现有 GitHub Pages 仓库时，使用 `master / (root)`，保留 `.nojekyll`。`dist/` 是生成文件，不需要提交。
+   ```sh
+   python scripts/build.py
+   ```
 
-## 内容维护
+4. Check internal links, media, metadata and page structure:
 
-- 医疗机器人项目未导入或推断任何未提供的代码。补充资料后，再添加内容和详情页。
-- “探索路径”呈现项目经历，不虚构学历、任职或未经确认的个人分工。
-- 项目状态和限制写在各自详情页。GR00T 的真实训练与仿真验证仍需数据、模型权重及相应 GPU 环境。
-- 来源与图片归属见 `docs/content-sources.md`。首页插画为 AI 生成的空间概念图，不是项目成果或场地实景。
-- 项目视觉规范见 `docs/design.md`。旧 Jekyll 主题源保留在仓库中供追溯，当前网站直接使用静态页面。原主题 MIT 许可继续保留。
+   ```sh
+   python scripts/check_site.py
+   ```
 
-新页面生成后应一并提交 HTML 与内容源，避免 GitHub Pages 发布旧页面。
+5. Start a local preview:
+
+   ```sh
+   python -m http.server 8080 --bind 127.0.0.1
+   ```
+
+   Open [the local preview](http://127.0.0.1:8080/).
+
+For a separate deployment directory, run `python scripts/build.py --output dist`. The generated `dist/` directory does not need to be committed.
+
+## Publish to GitHub Pages
+
+The existing repository publishes from `master / (root)`. Keep `.nojekyll` in place so GitHub Pages serves the generated files directly. Commit the generated HTML together with its content and source changes to avoid publishing an older build.
+
+The original Jekyll theme sources remain in the repository for reference; the current portfolio uses the generated static pages. The original theme's MIT license is retained.
+
+## Design and interaction
+
+The visual system combines editorial typography, project-led imagery and native motion. Motion is progressive enhancement: navigation and project reading work independently of animation. The site respects `prefers-reduced-motion`; reduced motion, keyboard navigation, touch layouts and the JavaScript-disabled experience should be included in release checks.
+
+The canvas is an illustrative motion study, not a calibrated crowd simulator. Project figures and schematics are identified separately from measured results. See `docs/design-v2.md` for the current design direction and `docs/design.md` for the earlier version.
+
+Release validation and measured local Lighthouse results are recorded in `docs/quality-review.md`.
+
+## Content maintenance
+
+- Keep all public-facing text in English, including metadata, alternative text, video labels and navigation.
+- Describe only documented work. Do not infer education, employment, individual team responsibilities or project outcomes.
+- Keep the medical-robotics entry pending until reviewable material is available; do not generate technical or clinical claims for it.
+- Preserve each project's status and limitations. GR00T has seven passing CPU protocol tests; real-model inference, GPU training and Isaac Sim closed-loop task evaluation remain unverified.
+- Use the source and attribution record in `docs/content-sources.md` when adding or replacing media.
+- Keep GitHub as the contact channel. No email address has been introduced.
