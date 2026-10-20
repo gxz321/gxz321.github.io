@@ -19,3 +19,8 @@ jobs:
         run: git diff --exit-code -- index.html 404.html feed.xml robots.txt sitemap.xml tags.html aboutme.html aboutme/ projects/
       - name: Check published routes and assets
         run: python scripts/check_site.py
+      - name: Validate the downloadable GR00T engineering package
+        run: |
+          python -m zipfile -e assets/downloads/groot-completion.zip "${RUNNER_TEMP}/groot"
+          cd "${RUNNER_TEMP}/groot/GR00T-completion"
+          python -m unittest discover -s tests -v

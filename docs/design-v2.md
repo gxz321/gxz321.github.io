@@ -7,7 +7,7 @@ An English research portfolio for GXZ, designed around one relationship: people,
 - Paper #f3f4ef, ink #161b18, acid accent #dfff00, secondary text #656b63. Flat colors; no decorative gradients or glow.
 - Self-hosted Manrope variable font for editorial typography, Instrument Serif Italic for the single expressive word motion, and system monospace for metadata. Licenses ship with the fonts.
 - 56px desktop gutters, 1440px maximum content; 20px mobile gutters. Sharp media corners, 1px rules, open layouts.
-- A typographic first line across the page, a smaller second line to the left of a native flow canvas, a dark featured project, two open secondary studies, a compact forthcoming project, a working-method section, a chartreuse about band, and a dark contact footer.
+- A two-line title across the page, followed by a separate row for the introduction and native flow canvas, a dark featured project, two open secondary studies, a compact forthcoming project, a working-method section, a chartreuse about band, and a dark contact footer. Title and media occupy separate grid rows with a positive gap; no negative margin moves the canvas into the title area.
 - All UI text, controls, and navigation are real HTML. Native scrolling and focus are preserved.
 
 ## Concept references

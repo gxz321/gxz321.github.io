@@ -49,6 +49,6 @@ Release validation and measured local Lighthouse results are recorded in `docs/q
 - Keep all public-facing text in English, including metadata, alternative text, video labels and navigation.
 - Describe only documented work. Do not infer education, employment, individual team responsibilities or project outcomes.
 - Keep the medical-robotics entry pending until reviewable material is available; do not generate technical or clinical claims for it.
-- Preserve each project's status and limitations. GR00T has seven passing CPU protocol tests; real-model inference, GPU training and Isaac Sim closed-loop task evaluation remain unverified.
+- Preserve each project's status and limitations. GR00T has 12 passing CPU protocol and validation tests; real-model inference, GPU training and Isaac Sim closed-loop task evaluation remain unverified.
 - Use the source and attribution record in `docs/content-sources.md` when adding or replacing media.
 - Keep GitHub as the contact channel. No email address has been introduced.

@@ -46,7 +46,7 @@ The starting material is `GR00T/Isaac-Sim-with-Gr00t-Tutorial-main.zip` in the w
 
 `assets/portfolio/groot.svg` is a code-native schematic created for this portfolio. It illustrates the relationship between data preparation, a policy service and simulation integration. It is **not an image of a tested robot**, a measured system output or evidence that a closed-loop task has succeeded. Third-party tutorial footage and screenshots are not presented as the author's project results.
 
-The project is **engineering in progress**. The downloadable `assets/downloads/groot-completion.zip` contains the project's engineering package. Seven CPU protocol tests pass. Preflight checks, protocol tests, mock responses and launch scripts document engineering preparation; real-model inference, GPU training and Isaac Sim closed-loop evaluation remain unverified. Future results should include configurations, logs, task videos and experiment records. The portfolio does not claim a task success rate, successful closed-loop manipulation or a physical-robot deployment.
+The project is **engineering in progress**. The downloadable `assets/downloads/groot-completion.zip` contains the project's engineering package. Twelve CPU protocol and validation tests pass. Preflight checks, protocol tests, mock responses and launch scripts document engineering preparation; real-model inference, GPU training and Isaac Sim closed-loop evaluation remain unverified. Future results should include configurations, logs, task videos and experiment records. The portfolio does not claim a task success rate, successful closed-loop manipulation or a physical-robot deployment.
 
 ## Medical robotics
 
