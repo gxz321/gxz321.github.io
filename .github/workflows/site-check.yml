@@ -22,4 +22,5 @@ jobs:
       - name: Validate the downloadable GR00T engineering package
         run: |
           python -m zipfile -e assets/downloads/groot-completion.zip "${RUNNER_TEMP}/groot"
-          python -m unittest discover -s "${RUNNER_TEMP}/groot/GR00T-completion/tests" -v
+          cd "${RUNNER_TEMP}/groot/GR00T-completion"
+          python -m unittest discover -s tests -v
