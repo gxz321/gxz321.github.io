@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" fill="none">
+<rect width="1000" height="620" fill="#e9ebe5"/>
+<g stroke="#c8cec1" stroke-width="1"><path d="M0 440 500 150 1000 440M0 500 500 210 1000 500M0 560 500 270 1000 560M0 620 500 330 1000 620M0 380 500 90 1000 380M0 320 500 30 1000 320"/><path d="M0 320 500 610 1000 320M0 260 500 550 1000 260M0 200 500 490 1000 200M0 140 500 430 1000 140"/></g>
+<path d="m310 442 200-116 200 116-200 116z" fill="#f5f4f0" stroke="#75816b" stroke-width="2"/>
+<path d="M510 326v232m-200-116 200 116 200-116" stroke="#75816b"/>
+<g stroke="#515e49" stroke-width="3" stroke-linejoin="round"><path d="m460 396 50-30 50 30-50 30z" fill="#b9c1b1"/><path d="M460 396v35l50 30 50-30v-35m-50 30v35" fill="#d5dacd"/><path d="M509 396V286l-90-69 21-29 101 77v131" fill="#b4bda9"/><path d="m421 207 92-86 25 23-96 93" fill="#dce1d4"/><path d="m511 125 89 42-13 28-75-48" fill="#b4bda9"/><path d="m596 171 27 26-8 23-21-9-14 18m14-18 19-22"/><ellipse cx="521" cy="279" rx="20" ry="22" fill="#f5f4f0"/><ellipse cx="427" cy="210" rx="18" ry="20" fill="#f5f4f0"/></g>
+<path d="M614 237v83l-49 30m49-30 61 36" stroke="#bf5737" stroke-width="2" stroke-dasharray="5 8"/><g fill="#bf5737"><circle cx="614" cy="237" r="4"/><circle cx="565" cy="350" r="4"/><circle cx="675" cy="356" r="4"/></g>
+<g fill="#64705b" font-family="Arial,sans-serif" font-size="14" letter-spacing="2"><text x="56" y="66">SIMULATION → DATA → POLICY</text><text x="56" y="568">GR00T × ISAAC SIM</text><text x="780" y="568">WORK IN PROGRESS</text></g>
+</svg>

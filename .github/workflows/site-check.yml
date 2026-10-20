@@ -1,0 +1,21 @@
+name: Check portfolio
+on:
+  pull_request:
+  push:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Rebuild published pages
+        run: python scripts/build.py
+      - name: Verify committed pages match their content source
+        run: git diff --exit-code -- index.html 404.html feed.xml robots.txt sitemap.xml tags.html aboutme.html aboutme/ projects/
+      - name: Check published routes and assets
+        run: python scripts/check_site.py
