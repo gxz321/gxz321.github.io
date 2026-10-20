@@ -1,0 +1,177 @@
+[
+  {
+    "slug": "crowdflow-ai",
+    "title": "CrowdFlow AI",
+    "englishTitle": "Understanding crowds before they arrive.",
+    "category": "CROWD INTELLIGENCE",
+    "index": "01",
+    "year": "2026",
+    "status": "研究原型",
+    "summary": "结合真实轨迹数据分析、社会力仿真与布局对照，探索活动入口的排队、分流与通行效率。",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "Social Force Model",
+      "Streamlit",
+      "Matplotlib"
+    ],
+    "cover": "/assets/portfolio/crowdflow.png",
+    "coverAlt": "CrowdFlow AI 数据分析中显示人群运动方向的流线图",
+    "sections": [
+      {
+        "title": "从拥堵现象到规划问题",
+        "paragraphs": [
+          "大型活动的入口需要同时处理到达人流、安检容量与排队空间。CrowdFlow AI 以里昂灯光节的数据为切入点，关注人群在哪里聚集、运动何时变慢，以及入口布局如何影响局部压力。",
+          "项目将观察证据与可调场景放在同一个交互界面中，让规划讨论能够回到具体的闸门、护栏和路径。"
+        ]
+      },
+      {
+        "title": "数据、仿真与可视化",
+        "paragraphs": [
+          "数据部分处理 CCTV 轨迹与接触事件，使用时间聚合、相对观察密度和流向图解释空间使用情况。仿真部分基于社会力模型，支持调整人数、闸门宽度、护栏长度与模拟时长。",
+          "Streamlit 界面组织了证据阅读、入口设计、方案比较与流程动画。项目另包含可选的 LLM 分析模块，用于生成瓶颈解释和调整建议。"
+        ]
+      },
+      {
+        "title": "把方案差异变得可读",
+        "paragraphs": [
+          "多闸门场景对比等宽入口与加宽中央入口的预设配置，展示通过率、排队区域密度、平均速度及潜在接触等模拟指标。热力图与轨迹视图帮助解释指标背后的空间分布。",
+          "现阶段的产出包括数据处理脚本、交互式仪表盘、仿真模块及分析图像，适合展示从人群证据到布局讨论的研究过程。"
+        ]
+      },
+      {
+        "title": "当前进展与下一步",
+        "paragraphs": [
+          "当前版本是探索性规划原型。已有对照的总入口宽度和随机初始条件并未完全统一，模拟中的潜在接触也不能直接等同于现场传感器记录。",
+          "下一步是校正轨迹解析、统一统计口径与对照条件，再进行可复现实验和参数校准。网站展示现有方法与产出，改善幅度需以这些验证后的结果为依据。"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "查看项目代码",
+        "url": "https://github.com/gxz321/crowdflows-ai"
+      },
+      {
+        "label": "打开演示",
+        "url": "https://crowdflows-ai-gk8xsndjykcrgvtyk3wfbm.streamlit.app"
+      }
+    ],
+    "short": "从行人轨迹理解拥堵，探索面向公共空间的人群流动分析。"
+  },
+  {
+    "slug": "groot",
+    "title": "GR00T × Isaac Sim",
+    "englishTitle": "Connecting robot policies to simulation.",
+    "category": "EMBODIED AI",
+    "index": "02",
+    "year": "2026",
+    "status": "工程完善中",
+    "summary": "基于开源教程整理 Isaac Sim 与 GR00T 的训练、推理和仿真接入流程，完善配置、接口与可复现准备。",
+    "stack": [
+      "Isaac Sim",
+      "NVIDIA GR00T",
+      "Python",
+      "LeRobot",
+      "策略推理"
+    ],
+    "cover": "/assets/portfolio/groot.svg",
+    "coverAlt": "GR00T 工程中数据准备、策略服务与 Isaac Sim 接入的流程示意",
+    "sections": [
+      {
+        "title": "从教程走向可复现工程",
+        "paragraphs": [
+          "项目以 donghoYee 的 Isaac Sim with GR00T Tutorial 为起点，围绕机器人操作任务整理数据准备、模型微调、推理服务与仿真运行之间的依赖关系。教程面向 GR00T N1.5，具体兼容性需要随固定版本进行核对。",
+          "当前工作重点是把分散的脚本、路径和运行前提组织为清晰的工程流程，为后续真实实验建立可检查的入口。"
+        ]
+      },
+      {
+        "title": "明确数据与策略接口",
+        "paragraphs": [
+          "训练侧需要 LeRobot 兼容数据与对应的机器人配置；仿真侧需要将相机观测、机器人状态和任务指令传给策略服务，并把返回动作映射到场景中的关节控制。",
+          "工程完善围绕配置管理、运行前检查和观测／动作协议展开，使环境、模型与仿真模块之间的连接能够被单独核对。"
+        ]
+      },
+      {
+        "title": "统一接口与工程验证",
+        "paragraphs": [
+          "本次工程完善统一了双摄像头观测的 HTTP 接口，提供真实策略与 mock 两种后端，并补充关节映射和数据预检，使仿真接入与协议调试能够分阶段进行。",
+          "7 项 CPU 协议测试已通过，可下载自编工程包查看配置与实现。真实模型推理、GPU 训练及 Isaac Sim 闭环任务效果尚未验证。"
+        ]
+      },
+      {
+        "title": "尚待完成的实验",
+        "paragraphs": [
+          "真实数据训练、GPU 上的策略推理及 Isaac Sim 闭环任务评估仍待完成。当前进展不构成机器人任务成功率或自主操作能力的验证。",
+          "下一阶段将固定软件与模型版本，准备匹配的训练数据和场景资产，再记录训练配置、推理延迟、任务完成情况与失败案例。"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "下载工程包",
+        "url": "/assets/downloads/groot-completion.zip"
+      },
+      {
+        "label": "上游教程",
+        "url": "https://github.com/donghoYee/Isaac-Sim-with-Gr00t-Tutorial"
+      },
+      {
+        "label": "NVIDIA GR00T",
+        "url": "https://github.com/NVIDIA/Isaac-GR00T"
+      }
+    ],
+    "short": "从仿真场景到数据、微调与策略评估，记录具身智能的实验过程。"
+  },
+  {
+    "slug": "sunken-plaza",
+    "title": "下沉广场",
+    "englishTitle": "People, movement and public space.",
+    "category": "SPATIAL RESEARCH",
+    "index": "03",
+    "year": "2025",
+    "status": "课程研究 · 可视化原型",
+    "summary": "以校园下沉广场为对象，结合现场影像、建筑重建与人流可视化，研究通行、停留和休憩设施的空间关系。",
+    "stack": [
+      "COLMAP",
+      "Rhino",
+      "Grasshopper",
+      "空间分析",
+      "人流可视化"
+    ],
+    "cover": "/assets/portfolio/sunken.png",
+    "coverAlt": "下沉广场研究中的三维场景、人流轨迹与聚集区域",
+    "sections": [
+      {
+        "title": "观察日常公共空间",
+        "paragraphs": [
+          "研究对象是同济大学四平路校区的下沉广场及周边教超。它同时承载穿行、停留、儿童活动与休息，不同使用方式在高差、出入口和座椅周边形成了丰富的空间关系。",
+          "小组研究围绕三个问题展开：行人选择什么路径，通行与停留集中在哪里，休憩设施和环境条件如何影响空间使用。"
+        ]
+      },
+      {
+        "title": "从现场影像到三维场景",
+        "paragraphs": [
+          "通过固定机位采集人流影像，并围绕建筑拍摄照片，使用 COLMAP 进行建筑重建。随后在 Rhino 中调整模型比例与位置，整合平面地图、建筑和人物位置。",
+          "Grasshopper 文件和汇报影像记录了轨迹、热图及人流动画的制作过程。研究结合三维可视化与原始视频回看，核对模型中呈现的空间现象。"
+        ]
+      },
+      {
+        "title": "从空间现象提出设计方向",
+        "paragraphs": [
+          "采样中可见横穿草坪、在台阶休息，以及教超附近聚集等现象。研究据此讨论步行路径连通性、出入口通行空间与停留空间之间的关系。",
+          "座椅与树荫的使用差异也提示了改善休憩条件的可能。新增步道、明确活动边界和增加遮荫属于研究提出的设计方向，仍需要后续采样与使用评估。"
+        ]
+      },
+      {
+        "title": "研究范围与后续完善",
+        "paragraphs": [
+          "现有结论来自所采集时段的探索性观察。视频采样存在间断，建筑细节、人流投影与动画连续性仍有完善空间。",
+          "后续工作将补充连续样本、校验人物位置与模型的对应关系，并统一轨迹和热图的统计口径，使空间观察能够支持更可靠的比较。"
+        ]
+      }
+    ],
+    "links": [],
+    "short": "从空间形态与人群行为出发，研究公共空间的使用方式。"
+  }
+]

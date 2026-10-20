@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gxz321.github.io/sitemap.xml

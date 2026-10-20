@@ -1,5 +1,7 @@
 # project
 _site
+dist/
+__pycache__/
 .sass-cache
 .vagrant
 
