@@ -1,9 +1,146 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" fill="none">
-<rect width="1000" height="620" fill="#e9ebe5"/>
-<g stroke="#c8cec1" stroke-width="1"><path d="M0 440 500 150 1000 440M0 500 500 210 1000 500M0 560 500 270 1000 560M0 620 500 330 1000 620M0 380 500 90 1000 380M0 320 500 30 1000 320"/><path d="M0 320 500 610 1000 320M0 260 500 550 1000 260M0 200 500 490 1000 200M0 140 500 430 1000 140"/></g>
-<path d="m310 442 200-116 200 116-200 116z" fill="#f5f4f0" stroke="#75816b" stroke-width="2"/>
-<path d="M510 326v232m-200-116 200 116 200-116" stroke="#75816b"/>
-<g stroke="#515e49" stroke-width="3" stroke-linejoin="round"><path d="m460 396 50-30 50 30-50 30z" fill="#b9c1b1"/><path d="M460 396v35l50 30 50-30v-35m-50 30v35" fill="#d5dacd"/><path d="M509 396V286l-90-69 21-29 101 77v131" fill="#b4bda9"/><path d="m421 207 92-86 25 23-96 93" fill="#dce1d4"/><path d="m511 125 89 42-13 28-75-48" fill="#b4bda9"/><path d="m596 171 27 26-8 23-21-9-14 18m14-18 19-22"/><ellipse cx="521" cy="279" rx="20" ry="22" fill="#f5f4f0"/><ellipse cx="427" cy="210" rx="18" ry="20" fill="#f5f4f0"/></g>
-<path d="M614 237v83l-49 30m49-30 61 36" stroke="#bf5737" stroke-width="2" stroke-dasharray="5 8"/><g fill="#bf5737"><circle cx="614" cy="237" r="4"/><circle cx="565" cy="350" r="4"/><circle cx="675" cy="356" r="4"/></g>
-<g fill="#64705b" font-family="Arial,sans-serif" font-size="14" letter-spacing="2"><text x="56" y="66">SIMULATION → DATA → POLICY</text><text x="56" y="568">GR00T × ISAAC SIM</text><text x="780" y="568">WORK IN PROGRESS</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">SO-101 / Policy interface</title>
+  <desc id="description">An illustrative engineering drawing of an articulated robot arm. Two camera inputs feed a policy network and a control interface, with a dashed action mapping back to the robot. Not yet GPU-evaluated.</desc>
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3b473e"/><stop offset=".48" stop-color="#303b33"/><stop offset="1" stop-color="#252d29"/>
+    </linearGradient>
+    <linearGradient id="bearing" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#38443b"/><stop offset="1" stop-color="#252d29"/>
+    </linearGradient>
+    <clipPath id="work-plane"><path d="M80 164h1280v704H80Z"/></clipPath>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="m2 1 6 4-6 4" stroke="#b7c2b8" stroke-width="1.2" fill="none"/>
+    </marker>
+    <marker id="action" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="m2 1 6 4-6 4" stroke="#dfff00" stroke-width="1.2" fill="none"/>
+    </marker>
+    <g id="camera" stroke="#cbd4ca" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M-52-25h26l8-10h36l8 10h26v67H-52Z" fill="#29332c"/>
+      <path d="M-52-15H52M-44 33h18" stroke="#718174" stroke-width="1.1"/>
+      <circle cy="9" r="21" fill="#252d29"/><circle cy="9" r="14" stroke="#718174"/>
+      <circle cy="9" r="3" fill="#dfff00" stroke="none"/><path d="M36-8h7" stroke="#dfff00"/>
+    </g>
+  </defs>
+  <rect width="1440" height="1000" fill="#252d29"/>
+  <!-- Quiet registration marks and a shared editorial baseline. -->
+  <g stroke="#788679" stroke-width="1" opacity=".5">
+    <path d="M80 130h1280M80 876h1280M80 153v-13m1280 13v-13M80 853v13m1280-13v13"/>
+    <path d="M80 188h8m-4-4v8M1360 188h-8m4-4v8"/>
+  </g>
+  <text x="80" y="94" fill="#e0e6db" font-family="Arial, Helvetica, sans-serif" font-size="31" letter-spacing="2.1">SO-101 / POLICY INTERFACE</text>
+  <rect x="1338" y="69" width="22" height="22" fill="#dfff00"/>
+  <!-- A perspectival work plane establishes diagram context. -->
+  <g stroke="#6d7b6d" stroke-width=".95" opacity=".25" clip-path="url(#work-plane)">
+    <path d="m114 805 427-248 435 252-429 250Z"/>
+    <path d="m184 765 433 252m-362-293 433 252m-362-293 433 252m-362-293 433 252m-362-293 433 252"/>
+    <path d="m184 845 428-248m-356 290 427-248m-355 290 427-248m-355 290 427-248m-355 290 427-248"/>
+  </g>
+  <ellipse cx="484" cy="811" rx="187" ry="76" fill="#1e2721" opacity=".42"/>
+  <!-- Mounting plate, pedestal, and coaxial shoulder bearing. -->
+  <g stroke="#aebbaf" stroke-width="1.7" stroke-linejoin="round">
+    <path d="M354 785v22c0 31 58 56 130 56s130-25 130-56v-22" fill="#28322b"/>
+    <ellipse cx="484" cy="785" rx="130" ry="56" fill="url(#metal)"/>
+    <ellipse cx="484" cy="785" rx="112" ry="46" stroke="#657666" stroke-width="1.1"/>
+    <path d="M400 745v40c0 21 38 38 84 38s84-17 84-38v-40" fill="url(#bearing)"/>
+    <ellipse cx="484" cy="745" rx="84" ry="38" fill="#303b33"/>
+    <ellipse cx="484" cy="745" rx="64" ry="28" stroke="#687c6c" stroke-width="1.1"/>
+    <path d="M438 704v42c0 12 21 22 46 22s46-10 46-22v-42" fill="url(#bearing)"/>
+    <ellipse cx="484" cy="704" rx="46" ry="22" fill="#303c33"/>
+    <path d="M407 748v28m147-28v28M451 809v13m67-13v13" stroke="#657666" stroke-width="1.1"/>
+  </g>
+  <g fill="#252d29" stroke="#aebbaf" stroke-width="1.2">
+    <ellipse cx="383" cy="784" rx="6" ry="3.5"/><ellipse cx="484" cy="744" rx="6" ry="3.5"/>
+    <ellipse cx="584" cy="784" rx="6" ry="3.5"/><ellipse cx="484" cy="829" rx="6" ry="3.5"/>
+  </g>
+  <!-- Rigid links with two contour lines and a restrained bevel. -->
+  <g stroke="#cbd4c8" stroke-width="1.9" stroke-linejoin="round">
+    <path d="M445 679 333 474c-11-20-6-39 12-48l22-12c17-9 34-2 44 16l111 207c11 21 6 39-14 50l-20 11c-17 9-33 2-43-19Z" fill="url(#metal)"/>
+    <path d="m366 433 122 227m-139-217 121 227" stroke="#758775" stroke-width="1.15"/>
+    <path d="m408 437 107 197c9 18 4 35-11 44" stroke="#eef2e6" stroke-width="1.1" opacity=".68"/>
+    <path d="m386 451-17 9m46 44-17 9m46 44-17 9m46 44-17 9" stroke="#647462" stroke-width="1.1"/>
+    <path d="m371 415 191-133c19-13 36-12 48 5l11 16c10 15 7 32-11 45L420 479c-18 13-36 9-47-6l-11-16c-10-15-8-30 9-42Z" fill="url(#metal)"/>
+    <path d="m389 430 197-136m-184 155 197-137" stroke="#7c8c78" stroke-width="1.15"/>
+    <path d="m414 466 187-130c12-8 17-16 15-26" stroke="#e2e8dc" stroke-width="1.1" opacity=".6"/>
+    <path d="m452 392 10 14m43-51 10 14m43-51 10 14" stroke="#647462" stroke-width="1.1"/>
+    <path d="m618 285 106 61c14 8 17 21 10 33l-10 17c-7 12-20 16-34 8l-105-61c-15-9-20-22-12-35l10-17c8-14 20-15 35-6Z" fill="url(#metal)"/>
+    <path d="m605 304 103 60m-111-44 103 60" stroke="#71836e" stroke-width="1.15"/>
+  </g>
+  <!-- Projected cylindrical joints. Front rings and axis centres remain explicit. -->
+  <g transform="translate(482 666) rotate(-27)" stroke-linejoin="round">
+    <path d="M-53-10V9c0 25 24 46 53 46s53-21 53-46V-10" fill="url(#bearing)" stroke="#bfcbb9" stroke-width="1.8"/>
+    <ellipse cy="-10" rx="53" ry="46" fill="#303b32" stroke="#d2dbca" stroke-width="1.9"/>
+    <ellipse cy="-10" rx="41" ry="35" stroke="#71856f" stroke-width="1.2"/>
+    <ellipse cy="-10" rx="24" ry="21" fill="#252d29" stroke="#b9c7b1" stroke-width="1.4"/>
+    <ellipse cy="-10" rx="10" ry="9" stroke="#687e66" stroke-width="1.1"/>
+    <g fill="#252d29" stroke="#b9c7b1" stroke-width="1.1">
+      <circle cx="-34" cy="-10" r="3"/><circle cx="34" cy="-10" r="3"/><circle cy="-39" r="3"/><circle cy="19" r="3"/>
+    </g>
+    <path d="M-7-10H7m-7-7v14" stroke="#dfff00" stroke-width="1.3"/>
+  </g>
+  <g transform="translate(371 446) rotate(-28)" stroke-linejoin="round">
+    <path d="M-48-18V3c0 23 21 42 48 42S48 26 48 3v-21" fill="url(#bearing)" stroke="#bfcbb9" stroke-width="1.8"/>
+    <ellipse cy="-18" rx="48" ry="42" fill="#313c33" stroke="#d2dbca" stroke-width="1.9"/>
+    <ellipse cy="-18" rx="36" ry="31" stroke="#71856f" stroke-width="1.2"/>
+    <ellipse cy="-18" rx="20" ry="17" fill="#252d29" stroke="#b9c7b1" stroke-width="1.4"/>
+    <g fill="#252d29" stroke="#b9c7b1" stroke-width="1.1">
+      <circle cx="-30" cy="-18" r="2.7"/><circle cx="30" cy="-18" r="2.7"/><circle cy="-44" r="2.7"/><circle cy="8" r="2.7"/>
+    </g>
+    <path d="M-7-18H7m-7-7v14" stroke="#dfff00" stroke-width="1.3"/>
+  </g>
+  <g transform="translate(601 306) rotate(-30)" stroke-linejoin="round">
+    <path d="M-36-14V4c0 18 16 32 36 32S36 22 36 4v-18" fill="url(#bearing)" stroke="#bfcbb9" stroke-width="1.7"/>
+    <ellipse cy="-14" rx="36" ry="32" fill="#303b32" stroke="#d2dbca" stroke-width="1.8"/>
+    <ellipse cy="-14" rx="26" ry="23" stroke="#71856f" stroke-width="1.1"/>
+    <ellipse cy="-14" rx="13" ry="12" fill="#252d29" stroke="#b9c7b1" stroke-width="1.2"/>
+    <path d="M-6-14H6m-6-6v12" stroke="#dfff00" stroke-width="1.2"/>
+    <g fill="#b9c7b1"><circle cx="-21" cy="-14" r="1.7"/><circle cx="21" cy="-14" r="1.7"/></g>
+  </g>
+  <!-- Wrist and open two-finger gripper. -->
+  <g transform="translate(719 380) rotate(-24)" stroke="#c7d3be" stroke-width="1.7" stroke-linejoin="round">
+    <path d="M-29-19V0c0 15 13 27 29 27S29 15 29 0v-19" fill="url(#bearing)"/>
+    <ellipse cy="-19" rx="29" ry="26" fill="#303b32"/>
+    <ellipse cy="-19" rx="19" ry="17" stroke="#71856f" stroke-width="1.1"/>
+    <path d="M-6-19H6m-6-6v12" stroke="#dfff00" stroke-width="1.2"/>
+    <path d="M-18 21v26h36V21" fill="#2b352d"/>
+    <path d="M-26 46v30l11 29h12v-9h-6l-5-23V52M26 46v30l-11 29H3v-9h6l5-23V52" fill="#303b32"/>
+    <path d="M-26 46h52M-14 52h28" stroke="#82927c" stroke-width="1.1"/>
+    <circle cy="36" r="4" stroke="#82927c" stroke-width="1.1"/>
+  </g>
+  <!-- Sparse action arcs indicate a coordinate mapping, not a measured trajectory. -->
+  <g stroke="#91a18c" stroke-width="1.1" opacity=".65" stroke-dasharray="4 7">
+    <path d="m426 685 113-65M318 462l104-61m139-87 81-46m51 130 54-31"/><path d="M484 720v-62m-21 12 42-24"/>
+  </g>
+  <g stroke="#dfff00" stroke-width="1.25" marker-end="url(#action)">
+    <path d="M416 695c-18-26-17-56 3-78"/><path d="M305 431c-2-29 16-55 44-65"/><path d="M576 240c28-7 58 3 75 27"/>
+  </g>
+  <!-- Two camera observations feed one policy, then a control interface. -->
+  <g stroke="#748571" stroke-width="1.1" opacity=".7">
+    <path d="M971 226v-19h26m335 19v-19h-26M971 824v19h26m335-19v19h-26"/>
+  </g>
+  <use href="#camera" transform="translate(1049 301)"/><use href="#camera" transform="translate(1254 301)"/>
+  <g stroke="#b7c2b8" stroke-width="1.4" stroke-linejoin="round">
+    <path d="M1049 356v55h102m103-55v55h-103v54" marker-end="url(#arrow)"/>
+    <path d="M1034 483h234v158h-234Z" fill="#29332c"/>
+    <path d="M1046 497h19m-19 0v19m210-19h-19m19 0v19m-210 112h19m-19 0v-19m210 19h-19m19 0v-19" stroke="#687e66" stroke-width="1"/>
+    <path d="M1151 653v63" marker-end="url(#arrow)"/><path d="M1034 734h234v81h-234Z" fill="#29332c"/>
+  </g>
+  <g stroke="#7e9278" stroke-width="1.1">
+    <path d="m1084 524 67 0 67 0m-134 0 67 77 67-77m-134 77 67-77 67 77m-134-39h134m-134-38 67 38 67-38m-134 77 67-39 67 39"/>
+    <path d="M1061 756h180m-180 19h180m-180 19h180"/>
+  </g>
+  <g fill="#29332c" stroke="#c7d3be" stroke-width="1.6">
+    <circle cx="1084" cy="524" r="6"/><circle cx="1084" cy="562" r="6"/><circle cx="1084" cy="601" r="6"/>
+    <circle cx="1151" cy="524" r="6"/><circle cx="1151" cy="562" r="6"/><circle cx="1151" cy="601" r="6"/>
+    <circle cx="1218" cy="524" r="6"/><circle cx="1218" cy="562" r="6"/><circle cx="1218" cy="601" r="6"/>
+  </g>
+  <g fill="#dfff00">
+    <circle cx="1151" cy="411" r="3"/><circle cx="1151" cy="562" r="3"/>
+    <rect x="1104" y="751" width="5" height="10"/><rect x="1180" y="770" width="5" height="10"/><rect x="1133" y="789" width="5" height="10"/>
+  </g>
+  <path d="M1020 775H894V445H803" stroke="#dfff00" stroke-width="1.25" stroke-dasharray="5 8" stroke-linejoin="round" marker-end="url(#action)" opacity=".8"/>
+  <circle cx="789" cy="445" r="7" stroke="#dfff00" stroke-width="1.2"/>
+  <path d="M789 431v-8m0 36v8m-14-22h-8m36 0h8" stroke="#dfff00" stroke-width="1" opacity=".65"/>
+  <text x="80" y="932" fill="#b8c5b1" font-family="Arial, Helvetica, sans-serif" font-size="25" letter-spacing="2.3">NOT YET GPU-EVALUATED</text>
+  <path d="M1293 920h67m-11-11 11 11-11 11" stroke="#b8c5b1" stroke-width="1.4"/>
 </svg>

@@ -1,7 +1,7 @@
 # The published portfolio uses static HTML; .nojekyll disables theme processing.
-title: GXZ · 项目与研究
+title: GXZ — Intelligence, in motion.
 author: GXZ
-description: 人群流动、机器人仿真与空间研究。
+description: Independent research on people, space, and intelligent systems.
 url: https://gxz321.github.io
 baseurl: ""
 timezone: Asia/Shanghai

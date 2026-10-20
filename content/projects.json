@@ -2,12 +2,26 @@
   {
     "slug": "crowdflow-ai",
     "title": "CrowdFlow AI",
-    "englishTitle": "Understanding crowds before they arrive.",
+    "englishTitle": "Making collective movement legible.",
     "category": "CROWD INTELLIGENCE",
     "index": "01",
     "year": "2026",
-    "status": "研究原型",
-    "summary": "结合真实轨迹数据分析、社会力仿真与布局对照，探索活动入口的排队、分流与通行效率。",
+    "status": "Research prototype",
+    "discipline": "Data analysis / Agent simulation / Interaction design",
+    "summary": "A research prototype connecting pedestrian trajectories, social-force simulation and entrance layouts to study how crowds move through public events.",
+    "short": "Reading pedestrian movement. Testing the spaces that shape it.",
+    "takeaway": "Crowd movement becomes a design question when trajectories, spatial conditions and simulation can be read together.",
+    "focus": [
+      "Pedestrian trajectories",
+      "Entrance bottlenecks",
+      "Scenario comparison"
+    ],
+    "deliverables": [
+      "Interactive research dashboard",
+      "Trajectory and contact analysis",
+      "Configurable entrance simulation",
+      "Flow maps and density views"
+    ],
     "stack": [
       "Python",
       "PyTorch",
@@ -16,162 +30,191 @@
       "Matplotlib"
     ],
     "cover": "/assets/portfolio/crowdflow.png",
-    "coverAlt": "CrowdFlow AI 数据分析中显示人群运动方向的流线图",
+    "coverAlt": "Flow lines showing pedestrian movement in the CrowdFlow AI analysis",
+    "mediaCaption": "Selected trajectories from one TopView 1A recording. Observed movement, rather than a calibrated simulation.",
     "sections": [
       {
-        "title": "从拥堵现象到规划问题",
+        "title": "Question / Where does a crowd become a bottleneck?",
         "paragraphs": [
-          "大型活动的入口需要同时处理到达人流、安检容量与排队空间。CrowdFlow AI 以里昂灯光节的数据为切入点，关注人群在哪里聚集、运动何时变慢，以及入口布局如何影响局部压力。",
-          "项目将观察证据与可调场景放在同一个交互界面中，让规划讨论能够回到具体的闸门、护栏和路径。"
+          "An event entrance brings arrival patterns, screening capacity and limited queueing space into one small area. Starting with data from Lyon's Festival of Lights, CrowdFlow AI investigates where people gather, when movement slows and how an entrance layout might change those conditions.",
+          "The aim is to make a planning question tangible: which gates, barriers and paths deserve closer attention before a layout is put into use?"
         ]
       },
       {
-        "title": "数据、仿真与可视化",
+        "title": "Method / Connect observation with adjustable scenarios",
         "paragraphs": [
-          "数据部分处理 CCTV 轨迹与接触事件，使用时间聚合、相对观察密度和流向图解释空间使用情况。仿真部分基于社会力模型，支持调整人数、闸门宽度、护栏长度与模拟时长。",
-          "Streamlit 界面组织了证据阅读、入口设计、方案比较与流程动画。项目另包含可选的 LLM 分析模块，用于生成瓶颈解释和调整建议。"
+          "CCTV trajectories and recorded contact events are processed into time-based summaries, relative observed density and directional flow maps. A social-force model then provides an adjustable simulation with controls for pedestrian count, gate width, barrier length and duration.",
+          "A Streamlit interface brings evidence, entrance design, scenario comparison and animated flow into one workflow. An optional language-model module produces interpretations of potential bottlenecks and suggestions for further exploration."
         ]
       },
       {
-        "title": "把方案差异变得可读",
+        "title": "What exists / A working environment for spatial comparison",
         "paragraphs": [
-          "多闸门场景对比等宽入口与加宽中央入口的预设配置，展示通过率、排队区域密度、平均速度及潜在接触等模拟指标。热力图与轨迹视图帮助解释指标背后的空间分布。",
-          "现阶段的产出包括数据处理脚本、交互式仪表盘、仿真模块及分析图像，适合展示从人群证据到布局讨论的研究过程。"
+          "The prototype includes data-processing scripts, a configurable simulation, an interactive dashboard and generated analysis images. Multi-gate presets explore equal-width entrances and a wider central gate through simulated throughput, queue-area density, average speed and potential contacts.",
+          "Heat maps and trajectory views help locate the spatial patterns behind those values. Together, the outputs create a way to inspect a scenario and ask more precise questions about its behavior."
         ]
       },
       {
-        "title": "当前进展与下一步",
+        "title": "Next questions / What makes a comparison reliable?",
         "paragraphs": [
-          "当前版本是探索性规划原型。已有对照的总入口宽度和随机初始条件并未完全统一，模拟中的潜在接触也不能直接等同于现场传感器记录。",
-          "下一步是校正轨迹解析、统一统计口径与对照条件，再进行可复现实验和参数校准。网站展示现有方法与产出，改善幅度需以这些验证后的结果为依据。"
+          "The current scenarios are exploratory: total entrance width and random starting conditions are not fully matched, and simulated potential contacts are not equivalent to recorded sensor events. The prototype therefore does not establish a measured improvement in crowd safety or flow.",
+          "The next step is to verify trajectory parsing, align metric definitions and compare layouts under controlled conditions. Repeated runs and parameter calibration would make the differences between layouts more interpretable."
         ]
       }
     ],
     "links": [
       {
-        "label": "查看项目代码",
+        "label": "View source",
         "url": "https://github.com/gxz321/crowdflows-ai"
       },
       {
-        "label": "打开演示",
+        "label": "Explore the prototype",
         "url": "https://crowdflows-ai-gk8xsndjykcrgvtyk3wfbm.streamlit.app"
       }
-    ],
-    "short": "从行人轨迹理解拥堵，探索面向公共空间的人群流动分析。"
+    ]
   },
   {
     "slug": "groot",
     "title": "GR00T × Isaac Sim",
-    "englishTitle": "Connecting robot policies to simulation.",
+    "englishTitle": "From robot policy to a testable system.",
     "category": "EMBODIED AI",
     "index": "02",
     "year": "2026",
-    "status": "工程完善中",
-    "summary": "基于开源教程整理 Isaac Sim 与 GR00T 的训练、推理和仿真接入流程，完善配置、接口与可复现准备。",
+    "status": "Engineering in progress",
+    "discipline": "Robotics / Policy integration / Simulation",
+    "summary": "An engineering study of the path from robot demonstrations to policy inference and Isaac Sim control, developed from an open-source GR00T tutorial.",
+    "short": "Building the interfaces between observation, policy and action.",
+    "takeaway": "Before a robot policy can be evaluated, its data, observations and actions need a shared, inspectable contract.",
+    "focus": [
+      "Observation and action interfaces",
+      "Simulation integration",
+      "Reproducible experiment setup"
+    ],
+    "deliverables": [
+      "Dual-camera inference interface",
+      "Real-policy and mock backends",
+      "Joint-mapping configuration",
+      "Dataset preflight checks",
+      "Seven passing CPU protocol tests"
+    ],
     "stack": [
       "Isaac Sim",
       "NVIDIA GR00T",
       "Python",
       "LeRobot",
-      "策略推理"
+      "Policy inference"
     ],
     "cover": "/assets/portfolio/groot.svg",
-    "coverAlt": "GR00T 工程中数据准备、策略服务与 Isaac Sim 接入的流程示意",
+    "coverAlt": "Diagram connecting data preparation, a GR00T policy service and Isaac Sim",
+    "mediaCaption": "The engineering workflow links dataset checks, policy serving and simulation control.",
     "sections": [
       {
-        "title": "从教程走向可复现工程",
+        "title": "Question / What does it take to connect a policy to a robot?",
         "paragraphs": [
-          "项目以 donghoYee 的 Isaac Sim with GR00T Tutorial 为起点，围绕机器人操作任务整理数据准备、模型微调、推理服务与仿真运行之间的依赖关系。教程面向 GR00T N1.5，具体兼容性需要随固定版本进行核对。",
-          "当前工作重点是把分散的脚本、路径和运行前提组织为清晰的工程流程，为后续真实实验建立可检查的入口。"
+          "A robot-learning tutorial spans several systems: demonstrations, model training, inference services and a simulated robot. This project starts from donghoYee's Isaac Sim with GR00T Tutorial and examines the interfaces that connect those systems.",
+          "The upstream tutorial targets GR00T N1.5. The immediate objective is a clearer engineering workflow with explicit configurations and checks, establishing the groundwork for later experiments with compatible software, data and scene assets."
         ]
       },
       {
-        "title": "明确数据与策略接口",
+        "title": "Method / Define the contract from observation to action",
         "paragraphs": [
-          "训练侧需要 LeRobot 兼容数据与对应的机器人配置；仿真侧需要将相机观测、机器人状态和任务指令传给策略服务，并把返回动作映射到场景中的关节控制。",
-          "工程完善围绕配置管理、运行前检查和观测／动作协议展开，使环境、模型与仿真模块之间的连接能够被单独核对。"
+          "Training requires a LeRobot-compatible dataset and a matching robot configuration. At runtime, camera images, robot state and a task instruction must reach the policy service; its returned actions must then map correctly to the simulated robot's joints.",
+          "The engineering work separates these concerns through configuration management, preflight checks and an explicit observation-action protocol. This makes each connection possible to inspect before attempting a full simulation run."
         ]
       },
       {
-        "title": "统一接口与工程验证",
+        "title": "What exists / An interface that can be checked in stages",
         "paragraphs": [
-          "本次工程完善统一了双摄像头观测的 HTTP 接口，提供真实策略与 mock 两种后端，并补充关节映射和数据预检，使仿真接入与协议调试能够分阶段进行。",
-          "7 项 CPU 协议测试已通过，可下载自编工程包查看配置与实现。真实模型推理、GPU 训练及 Isaac Sim 闭环任务效果尚未验证。"
+          "The current package provides a shared HTTP interface for two camera observations, real-policy and mock backends, joint mapping and dataset preflight checks. A mock backend supports protocol debugging before model inference and simulation integration are available.",
+          "Seven CPU protocol tests pass. The downloadable engineering package contains the configuration and implementation; real-model inference, GPU training and closed-loop task performance in Isaac Sim remain unverified."
         ]
       },
       {
-        "title": "尚待完成的实验",
+        "title": "Next questions / Does the complete loop work?",
         "paragraphs": [
-          "真实数据训练、GPU 上的策略推理及 Isaac Sim 闭环任务评估仍待完成。当前进展不构成机器人任务成功率或自主操作能力的验证。",
-          "下一阶段将固定软件与模型版本，准备匹配的训练数据和场景资产，再记录训练配置、推理延迟、任务完成情况与失败案例。"
+          "The next stage is to fix software and model versions, prepare matching demonstrations and scene assets, and run the complete observation-policy-action loop. Training configuration, inference latency, task outcomes and failure cases should be recorded together.",
+          "These experiments are still pending. The current engineering checks demonstrate protocol behavior, rather than a robot task success rate or validated autonomous manipulation."
         ]
       }
     ],
     "links": [
       {
-        "label": "下载工程包",
+        "label": "Download engineering package",
         "url": "/assets/downloads/groot-completion.zip"
       },
       {
-        "label": "上游教程",
+        "label": "Read the upstream tutorial",
         "url": "https://github.com/donghoYee/Isaac-Sim-with-Gr00t-Tutorial"
       },
       {
-        "label": "NVIDIA GR00T",
+        "label": "Explore NVIDIA GR00T",
         "url": "https://github.com/NVIDIA/Isaac-GR00T"
       }
-    ],
-    "short": "从仿真场景到数据、微调与策略评估，记录具身智能的实验过程。"
+    ]
   },
   {
     "slug": "sunken-plaza",
-    "title": "下沉广场",
-    "englishTitle": "People, movement and public space.",
+    "title": "Sunken Plaza",
+    "englishTitle": "Reading public space through everyday movement.",
     "category": "SPATIAL RESEARCH",
     "index": "03",
     "year": "2025",
-    "status": "课程研究 · 可视化原型",
-    "summary": "以校园下沉广场为对象，结合现场影像、建筑重建与人流可视化，研究通行、停留和休憩设施的空间关系。",
+    "status": "Course research / Visualization prototype",
+    "discipline": "Field observation / Spatial reconstruction / Behavioral mapping",
+    "summary": "An observational study of a campus sunken plaza, using site footage, 3D reconstruction and pedestrian visualization to examine the relationship between movement, pause and public space.",
+    "short": "Tracing the paths people choose and the places they stay.",
+    "takeaway": "Everyday routes and pauses offer a way to question how a public space is arranged, connected and sheltered.",
+    "focus": [
+      "Movement and dwelling",
+      "Spatial reconstruction",
+      "Public-space design questions"
+    ],
+    "deliverables": [
+      "Site observation footage",
+      "Reconstructed 3D context",
+      "Pedestrian trajectories and heat maps",
+      "Animated spatial analysis"
+    ],
     "stack": [
       "COLMAP",
       "Rhino",
       "Grasshopper",
-      "空间分析",
-      "人流可视化"
+      "Spatial analysis",
+      "Pedestrian visualization"
     ],
-    "cover": "/assets/portfolio/sunken.png",
-    "coverAlt": "下沉广场研究中的三维场景、人流轨迹与聚集区域",
+    "cover": "/assets/portfolio/sunken.webp",
+    "coverAlt": "A reconstructed sunken plaza with pedestrian trajectories and gathering areas",
+    "mediaCaption": "Site footage, reconstructed geometry and pedestrian traces form a shared spatial context.",
     "sections": [
       {
-        "title": "观察日常公共空间",
+        "title": "Question / How do people make use of an everyday plaza?",
         "paragraphs": [
-          "研究对象是同济大学四平路校区的下沉广场及周边教超。它同时承载穿行、停留、儿童活动与休息，不同使用方式在高差、出入口和座椅周边形成了丰富的空间关系。",
-          "小组研究围绕三个问题展开：行人选择什么路径，通行与停留集中在哪里，休憩设施和环境条件如何影响空间使用。"
+          "The sunken plaza and adjacent campus shop at Tongji University's Siping Road campus accommodate passing through, resting, gathering and children's activities. Changes in level, entrances, seating and shade bring these uses into close proximity.",
+          "The group study asks three linked questions: which routes people choose, where movement and lingering concentrate, and how resting facilities and environmental conditions relate to those patterns."
         ]
       },
       {
-        "title": "从现场影像到三维场景",
+        "title": "Method / Place observation inside a spatial model",
         "paragraphs": [
-          "通过固定机位采集人流影像，并围绕建筑拍摄照片，使用 COLMAP 进行建筑重建。随后在 Rhino 中调整模型比例与位置，整合平面地图、建筑和人物位置。",
-          "Grasshopper 文件和汇报影像记录了轨迹、热图及人流动画的制作过程。研究结合三维可视化与原始视频回看，核对模型中呈现的空间现象。"
+          "Fixed-camera footage captures pedestrian activity, while photographs around the buildings support reconstruction in COLMAP. The geometry is scaled and aligned in Rhino, bringing the site plan, buildings and observed pedestrian positions into a common setting.",
+          "Grasshopper files and presentation footage document the making of trajectories, heat maps and animated flows. Reviewing the original video alongside the 3D views helps check how the observed activity is represented."
         ]
       },
       {
-        "title": "从空间现象提出设计方向",
+        "title": "What exists / A visual account of routes and pauses",
         "paragraphs": [
-          "采样中可见横穿草坪、在台阶休息，以及教超附近聚集等现象。研究据此讨论步行路径连通性、出入口通行空间与停留空间之间的关系。",
-          "座椅与树荫的使用差异也提示了改善休憩条件的可能。新增步道、明确活动边界和增加遮荫属于研究提出的设计方向，仍需要后续采样与使用评估。"
+          "The sampled footage shows people crossing the lawn, resting on steps and gathering near the shop. The study uses those observations to examine path connectivity and the relationship between entrance circulation and places to stay.",
+          "Differences in the use of seating and shade also suggest questions about comfort. Additional paths, clearer activity boundaries and more shelter are proposed design directions, with further observation needed to assess their value."
         ]
       },
       {
-        "title": "研究范围与后续完善",
+        "title": "Next questions / Which patterns persist beyond the sample?",
         "paragraphs": [
-          "现有结论来自所采集时段的探索性观察。视频采样存在间断，建筑细节、人流投影与动画连续性仍有完善空间。",
-          "后续工作将补充连续样本、校验人物位置与模型的对应关系，并统一轨迹和热图的统计口径，使空间观察能够支持更可靠的比较。"
+          "The findings describe exploratory observations from the recorded periods. Gaps in sampling, building detail, pedestrian projection and animation continuity limit how confidently the results can be generalized.",
+          "Further work would add continuous samples, check the alignment between observed positions and the model, and use consistent definitions for trajectories and heat maps. That would support a more reliable comparison of how the plaza is used over time."
         ]
       }
     ],
-    "links": [],
-    "short": "从空间形态与人群行为出发，研究公共空间的使用方式。"
+    "links": []
   }
 ]

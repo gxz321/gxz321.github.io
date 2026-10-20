@@ -1,3 +1,15 @@
 {
-  "name": "GXZ"
+  "name": "GXZ",
+  "headline": "Intelligence, in motion.",
+  "statement": "I explore how intelligent systems perceive space, understand movement, and turn observation into action.",
+  "aboutHeadline": "I work between code and space.",
+  "about": "My work connects spatial research, crowd analysis and embodied AI. Across these projects, I use observation, simulation and working prototypes to make complex behavior easier to inspect and question.",
+  "approach": "Start with what can be observed. Build a way to test it. Stay precise about what the results can tell us.",
+  "interests": [
+    "Spatial intelligence",
+    "Human movement",
+    "Embodied systems"
+  ],
+  "github": "https://github.com/gxz321",
+  "contactLabel": "Find me on GitHub"
 }
