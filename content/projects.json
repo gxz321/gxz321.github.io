@@ -95,7 +95,7 @@
       "Real-policy and mock backends",
       "Joint-mapping configuration",
       "Dataset preflight checks",
-      "Seven passing CPU protocol tests"
+      "12 passing CPU protocol and validation tests"
     ],
     "stack": [
       "Isaac Sim",
@@ -126,7 +126,7 @@
         "title": "What exists / An interface that can be checked in stages",
         "paragraphs": [
           "The current package provides a shared HTTP interface for two camera observations, real-policy and mock backends, joint mapping and dataset preflight checks. A mock backend supports protocol debugging before model inference and simulation integration are available.",
-          "Seven CPU protocol tests pass. The downloadable engineering package contains the configuration and implementation; real-model inference, GPU training and closed-loop task performance in Isaac Sim remain unverified."
+          "Twelve CPU protocol and validation tests pass, including failure handling and dual-camera dataset checks. The downloadable engineering package contains the configuration and implementation; real-model inference, GPU training and closed-loop task performance in Isaac Sim remain unverified."
         ]
       },
       {

@@ -32,13 +32,23 @@ Lighthouse 13.5.0, Node 24, Chrome 155, against the local production build. Mobi
 
 | Mode | Performance | Accessibility | Best practices | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Mobile | 99 | 100 | 100 | 100 | 2.106 s | 0.000355 | 41 ms |
+| Mobile | 99 | 100 | 100 | 100 | 2.106 s | 0.000355 | 42 ms |
 | Desktop | 100 | 100 | 100 | 100 | 444 ms | 0.000797 | 0 ms |
 
 Mobile performance improved from 91 to 99 during review; LCP improved from 3.397 to 2.106 seconds. Neither final run reported a warning. Raw reports and screenshot evidence are retained with the local handoff materials.
 
+## Subsequent hero regression correction
+
+A user report revealed that the negative media margin still entered the first title line's area. The earlier intersection check covered the second line at one desktop size and was insufficient. The fix gives the complete heading its own grid row and places introduction and media below it with a positive 36-pixel gap. The canvas uses a landscape ratio to keep the composition compact.
+
+The corrected layout passed 36 checks: 18 viewport widths from 320 to 2300 pixels, with both loaded fonts and blocked fonts. Both heading lines and the introduction were checked against the media rectangle; all intersections and horizontal-overflow checks passed. Pause and project navigation also passed. Before/after screenshots and raw results are retained in the local handoff.
+
+Lighthouse was rerun against the corrected CSS. Scores and layout-shift results remained unchanged; mobile TBT was 42 ms, a one-millisecond variation from the earlier release.
+
 ## Content limits
 
-No education, employment, individual team responsibility, award, or measured project success is invented. Medical robotics remains a forthcoming entry. GR00T has seven passing CPU protocol tests; actual learned-policy inference, GPU training, and Isaac Sim closed-loop task evaluation still require demonstrations, a checkpoint, and a compatible environment. The hero flow field and robot schematic are labeled illustrations.
+The GR00T re-audit corrected the Isaac Sim 5.1 `Robot` joint-limit API, rejected non-finite joint state/limits and invalid control timing, ensured application cleanup after report/stop failures, required both camera streams for every episode, and made CUDA readiness depend on a runtime check. An independent cold-process run also exposed and corrected a Windows platform-probe test-isolation issue. Twelve CPU tests and Python compilation pass. GitHub Actions extracts the actual downloadable ZIP and runs its tests on each change. These tests cover protocol and failure handling; they do not exercise a loaded learned policy or an Isaac Sim GPU task.
+
+No education, employment, individual team responsibility, award, or measured project success is invented. Medical robotics remains a forthcoming entry. GR00T has 12 passing CPU protocol and validation tests; actual learned-policy inference, GPU training, and Isaac Sim closed-loop task evaluation still require demonstrations, a checkpoint, and a compatible environment. The hero flow field and robot schematic are labeled illustrations.
 
 This review uses design, usability, creativity, and content as separate quality concerns, consistent with [Awwwards' published evaluation criteria](https://www.awwwards.com/about-evaluation/). Award selection belongs to its jury; the portfolio does not claim an award or guarantee one.
